@@ -22,3 +22,5 @@ createInertiaApp({
     },
     progress: {color: '#60a0f6'},
 })
+
+
