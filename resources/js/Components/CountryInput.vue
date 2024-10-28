@@ -7,17 +7,21 @@
             </span>
         </label>
         <div class="relative">
+            <!-- Country Selection Dropdown button -->
             <div style="line-height: 3.4" @click="dropdown_open = !dropdown_open" class="select select-bordered w-full">
-                <p v-if="model.length" class="w-full font-bold flex flex-row gap-2 items-center">
+                <p v-if="model.length" class="w-full font-bold flex flex-row gap-1 items-center">
                     <img
                         class="rounded-full border-2 border-primary-content p-0 w-7 h-7 drop-shadow-[0_2px_2px_rgba(0,0,0,0.3)]"
                         :src="`https://flagcdn.com/w80/${model[0].toLowerCase()}.png`"
                         :alt="model[1]">
-                    {{ model[1] }}
+                    <span v-show="typeIs !== 'small'">{{ model[1] }}</span>
                 </p>
-                <p v-else>Select Your Country</p>
+                <span v-else>{{typeIs === 'small' ? 'Select' : 'Select Country'}}</span>
             </div>
-            <div v-show="dropdown_open" class="bg-base-100 rounded-box z-10 shadow-2xl pt-3 mt-2 absolute w-full">
+
+
+            <!-- Country Dropdown -->
+            <div v-show="dropdown_open" class="bg-base-100 rounded-box z-10 shadow-2xl pt-3 mt-2 absolute w-full min-w-80">
                 <label class="input input-bordered flex items-center gap-2 mx-3 shadow-inner">
                     <input type="text" class="grow" placeholder="Search" v-model="search"/>
                     <svg
@@ -1280,5 +1284,9 @@ import {ref, computed} from 'vue';
     })
     const props = defineProps({
         errorMessage: String,
+        typeIs: {
+            type: String,
+            default: 'large',
+        },
     })
 </script>

@@ -28,7 +28,7 @@ class StoreUserRequest extends FormRequest
             'country' => ['required', 'string', 'max:255'],
             'dob' => ['required', 'date'],
             'phone' => ['required', 'string', 'phone:AUTO', 'max:18', 'unique:users'],
-            'password' => ['required', 'string', 'regex:/^.*(?=.{3,})(?=.*[a-zA-Z])(?=.*[0-9])(?=.*[\d\x])(?=.*[!$#%]).*$/', 'min:8'],
+            'password' => ['required', 'string', 'min:8'],
         ];
     }
 }

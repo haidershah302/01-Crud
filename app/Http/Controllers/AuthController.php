@@ -40,5 +40,23 @@ class AuthController extends Controller
 
         return redirect()->route('login');
     }
+
+    public function login(Request $request)
+    {
+        $credentials = $request->validate([
+            'phone' => ['required', 'string', 'phone:AUTO', 'max:18'],
+            'password' => ['required', 'string', 'min:8'],
+        ]);
+
+        if (Auth::attempt($credentials)) {
+            $request->session()->regenerate();
+
+            return redirect()->route('home');
+        }
+
+        return back()->withErrors([
+            'phone' => 'The provided credentials do not match our records.',
+        ])->onlyInput('phone');
+    }
 }
 

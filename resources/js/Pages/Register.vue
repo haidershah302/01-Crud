@@ -72,8 +72,8 @@
             <div class="mb-4">
                 <label class="block text-sm font-medium mb-1" for="dob">
                     Date of Birth
-                    <span v-if="formData.errors && formData.errors.password" class="text-error">
-                        {{ formData.errors.password }}
+                    <span v-if="formData.errors && formData.errors.dob" class="text-error">
+                        {{ formData.errors.dob }}
                     </span>
                 </label>
                 <input type="date" id="dob" v-model="formData.dob" class="input input-bordered w-full" required/>
@@ -81,7 +81,7 @@
 
             <!-- Country Select Field -->
             <div class="mb-4">
-                <CountryInput v-model="selectedCountry" :errorMessages="formData.errors && formData.errors.phone ? formData.errors.phone : ''"/>
+                <CountryInput v-model="selectedCountry" :errorMessages="formData.errors && formData.errors.country ? formData.errors.country : ''"/>
             </div>
 
             <!-- Phone Number Field -->
@@ -145,10 +145,10 @@ let avatar_preview = ref(null);
 
 const formData = useForm({
     name: '',
-    phone: '',
     password: '',
     gender: '',
     country: '',
+    phone: '',
     dob: '',
     avatar: ''
 });
