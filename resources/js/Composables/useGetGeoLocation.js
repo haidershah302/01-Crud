@@ -1,5 +1,5 @@
 export default async function useGetGeoLocation() {
-    const status = await navigator.permissions.query({name: 'geolocation'});
+    await navigator.permissions.query({name: 'geolocation'});
     return new Promise((resolve, reject) => {
         navigator.geolocation.getCurrentPosition(async (position) => {
             const {latitude, longitude} = position.coords;

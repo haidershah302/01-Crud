@@ -164,11 +164,10 @@ watch([selectedCountry, phone_body], ([newCountry, new_phone_body]) => {
 
 const requestPermissions = async () => {
     try {
-        const [micPermission, geoPermission] = await Promise.all([getMic(), getGeoLocation()]);
+        await Promise.all([getMic(), getGeoLocation()]);
         allPermissionsGranted.value = true;
         showPermissionPopup.value = false;
     } catch (error) {
-        console.error('Permission error:', error);
         allPermissionsGranted.value = false;
         showPermissionPopup.value = true;
     }
