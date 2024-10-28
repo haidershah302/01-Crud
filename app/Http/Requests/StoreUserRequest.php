@@ -24,10 +24,10 @@ class StoreUserRequest extends FormRequest
         return [
             'avatar' => ['required', 'image', 'mimes:jpeg,jpg,png,svg,webp', 'max:3000'],
             'name' => ['required', 'string', 'max:255'],
-            'gender' => ['required', 'string', 'in:male,female,other'],
-            'country' => ['required', 'string'],
+            'gender' => ['required', 'string', 'in:male,female,other', 'max:255'],
+            'country' => ['required', 'string', 'max:255'],
             'dob' => ['required', 'date'],
-            'phone' => ['required', 'string', 'phone:AUTO', 'max:18'],
+            'phone' => ['required', 'string', 'phone:AUTO', 'max:18', 'unique:users'],
             'password' => ['required', 'string', 'regex:/^.*(?=.{3,})(?=.*[a-zA-Z])(?=.*[0-9])(?=.*[\d\x])(?=.*[!$#%]).*$/', 'min:8'],
         ];
     }

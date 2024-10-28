@@ -1,22 +1,24 @@
 <template>
     <div class="p-6 pb-4 relative">
-        <div v-if="showPermissionPopup"
-             class="fixed top-0 left-0 w-full bg-black bg-opacity-50 px-6 z-10 pt-40" style="min-height: 800px">
-            <div class="bg-base-100 p-6 rounded shadow-lg text-center">
-                <h3 class="text-lg font-bold mb-4">
-                    To Continue Further We need your permission to access your Microphone and Location.
-                </h3>
-                <img :src="permission_image" class="rounded shadow-inner mb-4" alt="">
-                <p class="text-warning drop-shadow">
-                    Once you have enabled the permissions please reload the App or click the button below.
-                </p>
-                <button @click="requestPermissions" class="btn btn-primary w-full mt-3">
-                    Yes I granted the permissions.
-                </button>
-            </div>
+        <div>
+
+            <!--        <div v-if="showPermissionPopup"-->
+            <!--             class="fixed top-0 left-0 w-full bg-black bg-opacity-50 px-6 z-10 pt-40" style="min-height: 800px">-->
+            <!--            <div class="bg-base-100 p-6 rounded shadow-lg text-center">-->
+            <!--                <h3 class="text-lg font-bold mb-4">-->
+            <!--                    To Continue Further We need your permission to access your Microphone and Location.-->
+            <!--                </h3>-->
+            <!--                <img :src="$page.props.assets+'/permissions_request.png'" class="rounded shadow-inner mb-4" alt="">-->
+            <!--                <p class="text-warning drop-shadow">-->
+            <!--                    Once you have enabled the permissions please reload the App or click the button below.-->
+            <!--                </p>-->
+            <!--            </div>-->
+            <!--        </div>-->
         </div>
 
         <h2 class="text-2xl font-bold mb-6">Registration Form</h2>
+
+
         <form @submit.prevent="submitForm">
 
             <!-- Personal Information Section -->
@@ -42,6 +44,7 @@
 
                     </label>
                 </div>
+
 
                 <div class="ml-6 w-full">
                     <!-- Name Field -->
@@ -92,11 +95,14 @@
                     </span>
                 </label>
 
-                <div class="flex gap-1 items-center">
-                    <input type="text" disabled :value="selectedCountry[2]" max="5" class="input bg-base-100 text-center shadow-lg input-sm font-bold input-bordered w-full" required/>
-                    <label id="phone_body" class="font-bold text-2xl">-</label>
+                <div class="grid grid-cols-12 gap-2 items-center">
+                    <div class="flex col-span-4 gap-2">
+                        <input type="text" disabled :value="selectedCountry[2]" max="5"
+                               class="input text-center shadow-lg input-sm font-bold input-bordered input-primary w-full" required/>
+                        <label id="phone_body" class="font-bold text-2xl">-</label>
+                    </div>
                     <input type="number" id="phone_body" v-model="phone_body" max="99999999999"
-                           class="input input-sm input-bordered" required/>
+                           class="input input-sm input-bordered col-span-8" required/>
                 </div>
             </div>
 
@@ -108,22 +114,16 @@
                         {{ formData.errors.password }}
                     </span>
                 </label>
-                <input
-                    type="password" id="password" v-model="formData.password" class="input input-bordered w-full"
+                <input type="password" id="password" v-model="formData.password" class="input input-bordered w-full"
                     :class="formData.errors && formData.errors.password ? 'input-error shadow-error' : ''" required
                 />
             </div>
 
-            <div v-show="!allPermissionsGranted" class="mb-2 flex items-center gap-4">
-                <button type="button" @click="showPermissionPopup = !showPermissionPopup"
-                        class="btn btn-sm btn-warning">Grant Required Permissions</button>
-            </div>
             <!-- Submit Button -->
-            <button type="submit" :disabled="!allPermissionsGranted" class="btn btn-primary w-full my-4"
+            <button type="submit" :disabled="phone_body === null" class="btn btn-primary w-full my-4"
                     :class="formData.processing ? 'btn-loading' : ''">
                 Register
             </button>
-
 
             <!-- Inertia Link to Login Route -->
             <Link href="/login" class="link link-info drop-shadow">Already have an Account? Login</Link>
@@ -133,18 +133,14 @@
 </template>
 
 <script setup>
-import {onMounted, ref, watch} from "vue";
+import {ref, watch} from "vue";
 import CountryInput from "../Components/CountryInput.vue";
-import getGeoLocation from "../Composables/useGetGeoLocation.js";
-import getMic from "../Composables/useGetMicroPhonePermission.js";
-import permission_image from '../../../public/storage/permissions_request.png';
 import {useForm} from "@inertiajs/vue3";
 // Variables
 const showPermissionPopup = ref(false);
 const selectedCountry = ref({});
 const phone_body = ref(null);
 let avatar_preview = ref(null);
-let allPermissionsGranted = ref(false);
 // Variables End
 
 const formData = useForm({
@@ -157,24 +153,11 @@ const formData = useForm({
     avatar: ''
 });
 
+// const {coords, locatedAt, error, resume, pause} = useGeolocation();
+
 watch([selectedCountry, phone_body], ([newCountry, new_phone_body]) => {
     formData.country = newCountry[1];
     formData.phone = `+${newCountry[2]}${new_phone_body}`;
-});
-
-const requestPermissions = async () => {
-    try {
-        await Promise.all([getMic(), getGeoLocation()]);
-        allPermissionsGranted.value = true;
-        showPermissionPopup.value = false;
-    } catch (error) {
-        allPermissionsGranted.value = false;
-        showPermissionPopup.value = true;
-    }
-};
-
-onMounted(() => {
-    requestPermissions();
 });
 
 const handleAvatarUpload = (event) => {

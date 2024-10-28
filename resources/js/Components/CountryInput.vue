@@ -1278,8 +1278,7 @@ import {ref, computed} from 'vue';
         type: Object,
         required: true,
     })
-    defineProps({
+    const props = defineProps({
         errorMessage: String,
-        geoLocation: String,
     })
 </script>
