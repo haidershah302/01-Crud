@@ -22,7 +22,7 @@ class StoreUserRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'avatar' => ['required', 'image', 'mimes:jpeg,png,jpg,gif,svg,webp', 'max:3000'],
+            'avatar' => ['required', 'image', 'mimes:jpeg,jpg,png,svg,webp', 'max:3000'],
             'name' => ['required', 'string', 'max:255'],
             'gender' => ['required', 'string', 'in:male,female,other'],
             'country' => ['required', 'string'],

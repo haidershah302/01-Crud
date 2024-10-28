@@ -50,9 +50,9 @@
 </template>
 
 <script setup>
-    import {ref, computed} from 'vue';
+import {ref, computed} from 'vue';
 
-    const search = ref('');
+    let search = ref('');
     const dropdown_open = ref(false)
 
     const filteredCountries = computed(() => {
@@ -1274,11 +1274,12 @@
         }
     ]);
 
-    const model = defineModel({
+    let model = defineModel({
         type: Object,
         required: true,
     })
     defineProps({
         errorMessage: String,
+        geoLocation: String,
     })
 </script>

@@ -85,7 +85,7 @@
             <div class="mb-4" v-show="selectedCountry.length">
                 <label class="block text-sm font-medium mb-1" for="phone">
                     Phone Number
-                    <span class="text-primary text-sm">{{ formData.phone }}</span>
+                    <span class="text-primary text-sm">{{ !formData.phone ? formData.phone : '' }}</span>
                     <br>
                     <span v-if="formData.errors && formData.errors.phone" class="text-error">
                         {{ formData.errors.phone }}
@@ -93,8 +93,8 @@
                 </label>
 
                 <div class="flex gap-1 items-center">
-                    <input type="text" id="dial_code" disabled :value="selectedCountry[2]" max="5" class="input bg-base-100 text-center shadow-lg input-sm font-bold input-bordered w-full" required/>
-                    <p class="font-bold text-2xl">-</p>
+                    <input type="text" disabled :value="selectedCountry[2]" max="5" class="input bg-base-100 text-center shadow-lg input-sm font-bold input-bordered w-full" required/>
+                    <label id="phone_body" class="font-bold text-2xl">-</label>
                     <input type="number" id="phone_body" v-model="phone_body" max="99999999999"
                            class="input input-sm input-bordered" required/>
                 </div>
@@ -119,10 +119,8 @@
                         class="btn btn-sm btn-warning">Grant Required Permissions</button>
             </div>
             <!-- Submit Button -->
-            <button type="submit" :disabled="!allPermissionsGranted"
-                    class="btn btn-primary w-full my-4"
-                    :class="formData.processing ? 'btn-loading' : ''"
-            >
+            <button type="submit" :disabled="!allPermissionsGranted" class="btn btn-primary w-full my-4"
+                    :class="formData.processing ? 'btn-loading' : ''">
                 Register
             </button>
 
@@ -166,12 +164,13 @@ watch([selectedCountry, phone_body], ([newCountry, new_phone_body]) => {
 
 const requestPermissions = async () => {
     try {
-        await Promise.all([getMic(), getGeoLocation()]);
+        const [micPermission, geoPermission] = await Promise.all([getMic(), getGeoLocation()]);
         allPermissionsGranted.value = true;
         showPermissionPopup.value = false;
     } catch (error) {
-        showPermissionPopup.value = true;
+        console.error('Permission error:', error);
         allPermissionsGranted.value = false;
+        showPermissionPopup.value = true;
     }
 };
 
