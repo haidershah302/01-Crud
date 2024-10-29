@@ -1,5 +1,16 @@
 <template>
     <div class="p-6 pb-4 relative">
+
+        <div class="mt-12">
+            <Link :href="route('home')" class="p-0 py-8 px-5 item-center flex justify-center items-center w-full">
+                <img :src="$page.props.assets + '/site_assets/brand/logo_wing.png'"
+                     class="drop-shadow-xl"
+                     width="40" height="auto"
+                     alt="">
+                <h1 class="text-5xl font-mono font-bold drop-shadow">Fly-live</h1>
+            </Link>
+        </div>
+
         <div>
 
             <!--        <div v-if="showPermissionPopup"-->
@@ -15,8 +26,6 @@
             <!--            </div>-->
             <!--        </div>-->
         </div>
-
-        <h2 class="text-2xl font-bold mb-6">Registration Form</h2>
 
 
         <form @submit.prevent="submitForm">
@@ -136,6 +145,7 @@
 import {ref, watch} from "vue";
 import CountryInput from "../Components/CountryInput.vue";
 import {useForm} from "@inertiajs/vue3";
+
 // Variables
 const showPermissionPopup = ref(false);
 const selectedCountry = ref({});
