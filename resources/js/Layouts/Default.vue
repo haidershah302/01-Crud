@@ -1,6 +1,6 @@
 <template>
     <div>
-        <header class="navbar fixed top-0 bg-base-content text-base-100">
+        <header class="navbar fixed top-0 bg-base-content text-base-100 z-50">
             <div class="flex-1">
                 <Link href="/" class="btn btn-ghost inline-block text-xl pt-0 m-0">
                     <img :src="$page.props.assets + '/site_assets/brand/logo.png'" class="h-full" alt="">
@@ -22,7 +22,7 @@
             <slot></slot>
         </main>
 
-        <div class="btm-nav bg-base-content grid grid-cols-5 z-10">
+        <div class="btm-nav bg-base-content grid grid-cols-5 z-50">
             <Link href="/">
                 <svg xmlns="http://www.w3.org/2000/svg" class="drop-shadow" width="2.5em" height="2.5em" viewBox="0 0 32 32">
                     <g fill="none">
@@ -196,12 +196,11 @@
                     :profileSrc="$page.props.auth.user.avatar"
                     :frameBorder="15"
                     :frameSize="70"
-                    :url="route('home')"
+                    :url="route('profile.user_profile')"
                     class="relative w-32 drop-shadow"
                 />
             </div>
         </div>
-
     </div>
 </template>
 <script setup>

@@ -1,53 +1,76 @@
+<style scoped>
+.selectable-input{
+    @apply relative text-sm font-medium;
+}
+
+.selectable-input > button {
+    @apply select select-bordered shadow-lg w-full;
+    line-height: 3.3;
+}
+
+.selectable-input > button > p {
+    @apply flex flex-row gap-1 items-center;
+}
+
+.selectable-input > div {
+    @apply bg-base-100 rounded-box z-10 shadow-2xl pt-3 mt-2 absolute w-full min-w-80;
+}
+
+.selectable-input > div > label {
+    @apply input input-bordered flex items-center gap-2 mx-3 shadow-inner;
+}
+.selectable-input > div > div {
+    @apply h-60 overflow-y-auto;
+}
+
+.selectable-input img {
+    @apply rounded-full border-2 border-primary-content p-0 w-7 h-7 drop-shadow-[0_2px_2px_rgba(0,0,0,0.3)];
+}
+</style>
+
 <template>
-    <div>
-        <label class="block text-sm font-medium mb-1" for="country">
+    <div class="selectable-input">
+        <label for="country">
             Country
             <span v-if="errorMessage" class="text-error">
                 {{ errorMessage }}
             </span>
         </label>
-        <div class="relative">
-            <!-- Country Selection Dropdown button -->
-            <div style="line-height: 3.4" @click="dropdown_open = !dropdown_open" class="select select-bordered w-full">
-                <p v-if="model.length" class="w-full font-bold flex flex-row gap-1 items-center">
-                    <img
-                        class="rounded-full border-2 border-primary-content p-0 w-7 h-7 drop-shadow-[0_2px_2px_rgba(0,0,0,0.3)]"
-                        :src="`https://flagcdn.com/w80/${model[0].toLowerCase()}.png`"
-                        :alt="model[1]">
-                    <span v-show="typeIs !== 'small'">{{ model[1] }}</span>
-                </p>
-                <span v-else>{{typeIs === 'small' ? 'Select' : 'Select Country'}}</span>
-            </div>
+        <!-- Country Selection Dropdown button -->
+        <button type="button" @click="dropdown_open = !dropdown_open">
+            <p v-if="model.length">
+                <img
+                    :src="`https://flagcdn.com/w80/${model[0].toLowerCase()}.png`"
+                    :alt="model[1]">
+                <span v-show="typeIs !== 'small'">{{ model[1] }}</span>
+            </p>
+            <span v-else>{{typeIs === 'small' ? 'Select' : 'Select Country'}}</span>
+        </button>
 
-
-            <!-- Country Dropdown -->
-            <div v-show="dropdown_open" class="bg-base-100 rounded-box z-10 shadow-2xl pt-3 mt-2 absolute w-full min-w-80">
-                <label class="input input-bordered flex items-center gap-2 mx-3 shadow-inner">
-                    <input type="text" class="grow" placeholder="Search" v-model="search"/>
-                    <svg
-                        xmlns="http://www.w3.org/2000/svg"
-                        viewBox="0 0 16 16"
-                        fill="currentColor"
-                        class="h-6 w-6 opacity-70">
-                        <path
-                            fill-rule="evenodd"
-                            d="M9.965 11.026a5 5 0 1 1 1.06-1.06l2.755 2.754a.75.75 0 1 1-1.06 1.06l-2.755-2.754ZM10.5 7a3.5 3.5 0 1 1-7 0 3.5 3.5 0 0 1 7 0Z"
-                            clip-rule="evenodd"/>
-                    </svg>
-                </label>
-                <div class="h-60 overflow-y-auto">
-                    <ul class="menu">
-                        <li v-for="country in filteredCountries" :key="country.code">
-                            <p class="w-full font-bold" @click="model = [country.code, country.name, country.dial_code]; dropdown_open = !dropdown_open">
-                                <img
-                                    class="rounded-full border-2 border-primary-content p-0 w-7 h-7 drop-shadow-[0_2px_2px_rgba(0,0,0,0.3)]"
-                                    :src="`https://flagcdn.com/w80/${country.code.toLowerCase()}.png`"
-                                    :alt="country.name">
-                                {{ country.name }}
-                            </p>
-                        </li>
-                    </ul>
-                </div>
+        <!-- Country Dropdown -->
+        <div v-show="dropdown_open">
+            <label>
+                <input type="text" class="grow" placeholder="Search" v-model="search"/>
+                <svg
+                    xmlns="http://www.w3.org/2000/svg"
+                    viewBox="0 0 16 16"
+                    fill="currentColor"
+                    class="h-6 w-6 opacity-70">
+                    <path
+                        fill-rule="evenodd"
+                        d="M9.965 11.026a5 5 0 1 1 1.06-1.06l2.755 2.754a.75.75 0 1 1-1.06 1.06l-2.755-2.754ZM10.5 7a3.5 3.5 0 1 1-7 0 3.5 3.5 0 0 1 7 0Z"
+                        clip-rule="evenodd"/>
+                </svg>
+            </label>
+            <div>
+                <ul class="menu">
+                    <li v-for="country in filteredCountries" :key="country.code">
+                        <p @click="model = [country.code, country.name, country.dial_code]; dropdown_open = !dropdown_open">
+                            <img :src="`https://flagcdn.com/w80/${country.code.toLowerCase()}.png`" :alt="country.name">
+                            {{ country.name }}
+                        </p>
+                    </li>
+                </ul>
             </div>
         </div>
     </div>

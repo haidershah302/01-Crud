@@ -1,8 +1,9 @@
 <template>
     <div>
-        <div class="carousel carousel-center" style="max-width: 100vw">
-            <div v-for="(banner, key, index) in eventBanners" :id="`item-${index}`" class="carousel-item p-4">
-                <img :src="$page.props.assets+banner" class="shadow-lg shadow-primary/40" style="max-width: 360px" alt=""/>
+        <div class="carousel carousel-center w-full gap-3 pl-6 py-4">
+            <div v-for="(banner, key, index) in eventBanners" :id="`item-${index}`"
+                 class="carousel-item w-11/12 shadow-lg">
+                <img :src="$page.props.assets+banner" alt=""/>
             </div>
         </div>
     </div>

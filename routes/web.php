@@ -35,4 +35,7 @@ Route::middleware('auth')->group(function () {
     })->name('home');
 
     Route::post('/logout', [AuthController::class, 'logout'])->name('logout');
+
+    // Profile Pages
+    Route::inertia('/profile', 'Profile/user_profile')->name('profile.user_profile');
 });

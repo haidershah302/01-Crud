@@ -1,73 +1,114 @@
+<style scoped>
+#avatar-upload {
+    @apply text-sm;
+}
+
+#avatar-upload > label{
+    @apply mt-2 p-2 cursor-pointer border-dashed border-4 border-base-content/30
+    shadow-lg flex justify-center items-center h-24 w-24 rounded-lg;
+}
+
+.avatar-upload > svg {
+    @apply text-primary-content drop-shadow;
+}
+
+.avatar-upload > img {
+    @apply w-full h-full;
+}
+
+
+.plain-text-input > label {
+    @apply text-sm font-medium;
+}
+
+.plain-text-input > input {
+    @apply input input-bordered shadow-lg w-full;
+}
+
+.select-input {
+    @apply text-sm font-medium;
+}
+.select-input > select {
+    @apply select select-bordered w-full shadow-lg;
+}
+
+.phone-input {
+    @apply flex gap-2 items-center;
+}
+
+.phone-input > input {
+    @apply input text-center shadow-lg font-bold input-bordered;
+}
+
+.phone-input > label {
+    @apply font-bold text-3xl;
+}
+</style>
+
 <template>
     <div class="p-6 pb-4 relative">
 
-        <div class="mt-12">
-            <Link :href="route('home')" class="p-0 py-8 px-5 item-center flex justify-center items-center w-full">
-                <img :src="$page.props.assets + '/site_assets/brand/logo_wing.png'"
-                     class="drop-shadow-xl"
-                     width="40" height="auto"
-                     alt="">
-                <h1 class="text-5xl font-mono font-bold drop-shadow">Fly-live</h1>
-            </Link>
-        </div>
-
-        <div>
-
-            <!--        <div v-if="showPermissionPopup"-->
-            <!--             class="fixed top-0 left-0 w-full bg-black bg-opacity-50 px-6 z-10 pt-40" style="min-height: 800px">-->
-            <!--            <div class="bg-base-100 p-6 rounded shadow-lg text-center">-->
-            <!--                <h3 class="text-lg font-bold mb-4">-->
-            <!--                    To Continue Further We need your permission to access your Microphone and Location.-->
-            <!--                </h3>-->
-            <!--                <img :src="$page.props.assets+'/permissions_request.png'" class="rounded shadow-inner mb-4" alt="">-->
-            <!--                <p class="text-warning drop-shadow">-->
-            <!--                    Once you have enabled the permissions please reload the App or click the button below.-->
-            <!--                </p>-->
-            <!--            </div>-->
-            <!--        </div>-->
-        </div>
-
-
         <form @submit.prevent="submitForm">
-
             <!-- Personal Information Section -->
-            <div class="flex mb-4">
+            <div class="flex gap-4">
                 <!-- Avatar Upload Field -->
-                <div>
-                    <p class="text-sm font-bold text-gray-500">Upload Avatar</p>
+                <div id="avatar-upload">
+                    <p>Upload Avatar</p>
                     <p v-if="formData.errors && formData.errors.avatar" class="text-error">
                         {{ formData.errors.avatar }}
                     </p>
                     <label for="avatar"
-                           class="mt-2 p-2 cursor-pointer border-dashed border-2
-                           border-primary/30 shadow-xl shadow-primary/10 bg-base-100
-                           flex justify-center items-center h-24 w-24 rounded-lg">
-                        <img v-if="formData.avatar !== ''" :src="avatar_preview" alt="Avatar Preview" class="w-full h-full"/>
-                        <svg v-else class="text-primary-content drop-shadow" xmlns="http://www.w3.org/2000/svg" fill="none"
-                             viewBox="0 0 24 24"
-                             stroke="currentColor" width="40" height="40">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4"/>
+                           :class="formData.errors && formData.errors.avatar ? '!border-error !shadow-lg !shadow-error-content' : ''">
+                        <img
+                            v-if="formData.avatar !== ''"
+                            :src="avatar_preview"
+                            alt="Avatar Preview"
+                        />
+                        <svg
+                            v-else xmlns="http://www.w3.org/2000/svg" fill="none"
+                            viewBox="0 0 24 24"
+                            stroke="currentColor"
+                            width="40" height="40">
+                            <path
+                                stroke-linecap="round"
+                                stroke-linejoin="round"
+                                stroke-width="2"
+                                d="M12 4v16m8-8H4"
+                            />
                         </svg>
 
-                        <input type="file" id="avatar" @change="handleAvatarUpload" class="hidden" accept="image/*"/>
-
+                        <input
+                            type="file"
+                            id="avatar"
+                            @change="handleAvatarUpload"
+                            class="hidden"
+                            accept="image/*"
+                        />
                     </label>
                 </div>
 
-
-                <div class="ml-6 w-full">
+                <div class="w-full">
                     <!-- Name Field -->
-                    <div class="mb-4">
-                        <label class="block text-sm font-medium mb-1" for="name">
+                    <div class="mb-4 plain-text-input">
+                        <label for="name">
                             Name
                         </label>
-                        <input type="text" id="name" v-model="formData.name" class="input input-sm input-bordered w-full" required/>
+                        <input
+                            type="text"
+                            id="name"
+                            v-model="formData.name"
+                            :class="formData.errors && formData.errors.name ? '!input-error !shadow-lg !shadow-error-content' : ''"
+                            required
+                        />
                     </div>
 
                     <!-- Gender Select Field -->
-                    <div>
-                        <label class="block text-sm font-medium mb-1" for="gender">Gender</label>
-                        <select id="gender" v-model="formData.gender" class="select select-sm select-bordered w-full" required>
+                    <div
+                        class="select-input"
+                        :class="formData.errors && formData.errors.gender ? '!input-error !shadow-lg !shadow-error-content' : ''"
+                    >
+                        <label for="gender">Gender</label>
+                        <select id="gender" v-model="formData.gender" required>
                             <option value="" disabled>Select Gender</option>
                             <option value="male">Male</option>
                             <option value="female">Female</option>
@@ -78,24 +119,33 @@
             </div>
 
             <!-- Date of Birth Select Field -->
-            <div class="mb-4">
-                <label class="block text-sm font-medium mb-1" for="dob">
+            <div class="mb-4 plain-text-input">
+                <label for="dob">
                     Date of Birth
                     <span v-if="formData.errors && formData.errors.dob" class="text-error">
                         {{ formData.errors.dob }}
                     </span>
                 </label>
-                <input type="date" id="dob" v-model="formData.dob" class="input input-bordered w-full" required/>
+                <input
+                    type="date"
+                    id="dob"
+                    v-model="formData.dob"
+                    required
+                    :class="formData.errors && formData.errors.dob ? '!input-error !shadow-lg !shadow-error-content' : ''"
+                />
             </div>
 
             <!-- Country Select Field -->
             <div class="mb-4">
-                <CountryInput v-model="selectedCountry" :errorMessages="formData.errors && formData.errors.country ? formData.errors.country : ''"/>
+                <CountryInput
+                    v-model="selectedCountry"
+                    :errorMessages="formData.errors && formData.errors.country ? formData.errors.country : ''"
+                />
             </div>
 
             <!-- Phone Number Field -->
             <div class="mb-4" v-show="selectedCountry.length">
-                <label class="block text-sm font-medium mb-1" for="phone">
+                <label class="text-sm font-medium" for="phone">
                     Phone Number
                     <span class="text-primary text-sm">{{ !formData.phone ? formData.phone : '' }}</span>
                     <br>
@@ -104,27 +154,33 @@
                     </span>
                 </label>
 
-                <div class="grid grid-cols-12 gap-2 items-center">
-                    <div class="flex col-span-4 gap-2">
-                        <input type="text" disabled :value="selectedCountry[2]" max="5"
-                               class="input text-center shadow-lg input-sm font-bold input-bordered input-primary w-full" required/>
-                        <label id="phone_body" class="font-bold text-2xl">-</label>
-                    </div>
-                    <input type="number" id="phone_body" v-model="phone_body" max="99999999999"
-                           class="input input-sm input-bordered col-span-8" required/>
+                <div class="phone-input">
+                    <input type="text" class="w-4/12" :value="selectedCountry[2]" max="5" disabled required/>
+                    <label>-</label>
+                    <input
+                        type="number"
+                        class="w-7/12 !text-left"
+                        v-model="phone_body"
+                        max="99999999999"
+                        required
+                        :class="formData.errors && formData.errors.phone ? '!input-error !shadow-lg !shadow-error-content' : ''"
+                    />
                 </div>
             </div>
 
             <!-- Password Field -->
-            <div class="mb-4">
-                <label class="block text-sm font-medium mb-1" for="password">
+            <div class="mb-4 plain-text-input">
+                <label for="password">
                     Password
                     <span v-if="formData.errors && formData.errors.password" class="text-error">
                         {{ formData.errors.password }}
                     </span>
                 </label>
-                <input type="password" id="password" v-model="formData.password" class="input input-bordered w-full"
-                    :class="formData.errors && formData.errors.password ? 'input-error shadow-error' : ''" required
+                <input
+                    type="password" id="password"
+                    v-model="formData.password"
+                    :class="formData.errors && formData.errors.password ? '!input-error !shadow-lg !shadow-error-content' : ''"
+                    required
                 />
             </div>
 
@@ -145,6 +201,11 @@
 import {ref, watch} from "vue";
 import CountryInput from "../Components/CountryInput.vue";
 import {useForm} from "@inertiajs/vue3";
+import Guest from "@/Layouts/Guest.vue";
+defineOptions({
+    layout: Guest
+})
+
 
 // Variables
 const showPermissionPopup = ref(false);

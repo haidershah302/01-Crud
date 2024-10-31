@@ -42,11 +42,11 @@ export default {
 
                     "neutral-content": "#f3f4f6",
 
-                    "base-100": "#f5f5f4",
+                    "base-100": "#ffffff",
 
-                    "base-200": "#e7e5e4",
+                    "base-200": "#f5f5f5",
 
-                    "base-300": "#d6d3d1",
+                    "base-300": "#e7e6e6",
 
                     "base-content": "#1c1917",
 

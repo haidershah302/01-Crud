@@ -20,7 +20,7 @@ onMounted(() => {
 </script>
 
 <template>
-    <label class="swap swap-rotate text-base-content">
+    <label class="swap swap-rotate text-base-100">
         <input type="checkbox" class="theme-controller" :checked="currentTheme === 'FlyLiveUiDark'"
                @change="switchTheme(currentTheme === 'FlyLiveUi' ? 'FlyLiveUiDark' : 'FlyLiveUi')"/>
         <svg class="swap-off h-10 w-10 fill-current" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">

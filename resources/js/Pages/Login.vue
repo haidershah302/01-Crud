@@ -1,14 +1,5 @@
 <template>
     <div>
-        <div class="mt-12">
-            <Link :href="route('home')" class="p-0 py-8 px-5 item-center flex justify-center items-center w-full">
-                <img :src="$page.props.assets + '/site_assets/brand/logo_wing.png'"
-                     class="drop-shadow-xl"
-                     width="40" height="auto"
-                     alt="">
-                <h1 class="text-5xl font-mono font-bold drop-shadow">Fly-live</h1>
-            </Link>
-        </div>
         <!-- Phone Number Field -->
 
         <!--    Social Login Buttons Start    -->
@@ -72,8 +63,6 @@
             <button type="submit" class="btn btn-primary text-white w-full px-12">Login</button>
         </form>
 
-
-
         <Link :href="route('register')" class="btn btn-info m-5">Register</Link>
     </div>
 </template>
@@ -82,6 +71,11 @@
 import CountryInput from "@/Components/CountryInput.vue";
 import {useForm} from "@inertiajs/vue3";
 import {ref, watch} from "vue";
+import Guest from "@/Layouts/Guest.vue";
+
+defineOptions({
+    layout: Guest
+})
 
 const selectedCountry = ref({});
 const phone_body = ref(null);

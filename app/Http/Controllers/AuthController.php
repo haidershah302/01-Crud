@@ -24,7 +24,7 @@ class AuthController extends Controller
 
         $request->avatar->move($destinationPath, $fileName);
 
-        $user->avatar = $fileName;
+        $user->avatar = asset('/') . $destinationPath . '/' . $fileName;
         $user->save();
 
         Auth::login($user);
