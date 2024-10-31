@@ -17,7 +17,6 @@
     </div>
 </template>
 <script setup>
-import Default from "@/Layouts/Default.vue";
 import BannerCarousel from "@/Components/bannerCarousel.vue";
 import HomeCarousel from "@/Components/homeCarousel.vue";
 import RoomGrid from "@/Components/roomGrid.vue";
