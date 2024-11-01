@@ -1,6 +1,6 @@
 <template>
     <div>
-        <div class="grid grid-cols-12 fixed top-0 left-0 z-10">
+        <div class="grid grid-cols-12 fixed top-0 left-0 z-10 bg-base-300">
             <Link :href="$attrs.from" class="btn btn-ghost col-span-2">
                 <svg xmlns="http://www.w3.org/2000/svg" width="2.5em" height="2.5em" viewBox="0 0 24 24">
                     <path fill="currentColor" d="M10 22L0 12L10 2l1.775 1.775L3.55 12l8.225 8.225z" />

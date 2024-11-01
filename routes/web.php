@@ -30,18 +30,16 @@ Route::middleware('guest')->group(function () {
 });
 
 Route::middleware('auth')->group(function () {
-    Route::get('/', function () {
-        return Inertia::render('Home');
-    })->name('home');
+    Route::inertia('/', 'Home')->name('home');
 
-    Route::post('/logout', [AuthController::class, 'logout'])
-        ->name('logout');
+    Route::post('/logout', [AuthController::class, 'logout'])->name('logout');
 
     // Profile Pages
-    Route::inertia('/profile', 'Profile/user_profile')
-        ->name('profile.user_profile');
+    Route::get('/profile', function (){
+        return Inertia::render('Profile/user', ['user' => auth()->user()]);
+    })->name('profile.user');
 
-    Route::inertia('/profile/view/{id}', function ($id){
-        dd($id);
+    Route::get('/profile/view/{user}', function (\App\Models\User $user){
+        return Inertia::render('Profile/view', ['user' => $user]);
     })->name('profile.view');
 });

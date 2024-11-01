@@ -1,30 +1,143 @@
 <template>
     <div>
-        <header class="navbar fixed top-0 bg-base-content text-base-100 z-50">
+        <header class="fixed top-0 bg-base-300 z-10 w-full flex px-4 pt-2 pb-0">
             <div class="flex-1">
-                <Link href="/" class="btn btn-ghost inline-block text-xl pt-0 m-0">
-                    <img :src="$page.props.assets + '/site_assets/brand/logo.png'" class="h-full" alt="">
+                <Link href="/" class="btn btn-ghost btn-sm inline-block text-xl p-0 m-0">
+                    <img :src="$page.props.assets + '/site_assets/brand/logo.png'" class="w-12 drop-shadow-lg" alt="">
                 </Link>
             </div>
-            <ul class="menu menu-horizontal p-0 drop-shadow-lg">
+            <ul class="menu menu-horizontal gap-2 p-0 drop-shadow-lg">
                 <li>
                     <ThemeSwitch class="p-0 m-0"/>
                 </li>
                 <li>
-                    <Link href="/" class="text-accent">
-                        <img :src="$page.props.assets + '/site_assets/auth/google-icon.png'" width="25" alt="">
-                    </Link>
+                    <svg xmlns="http://www.w3.org/2000/svg" class="p-0 w-7 drop-shadow-lg" viewBox="0 0 32 32">
+                        <g fill="none">
+                            <g filter="url(#f909id7)">
+                                <rect width="7.513" height="12.209" x="17.414" y="22.867" fill="url(#f909id0)" rx="3.757" transform="rotate(-45 17.414 22.867)" />
+                                <rect width="7.513" height="12.209" x="17.414" y="22.867" fill="url(#f909id1)" rx="3.757" transform="rotate(-45 17.414 22.867)" />
+                                <rect width="7.513" height="12.209" x="17.414" y="22.867" fill="url(#f909id2)" rx="3.757" transform="rotate(-45 17.414 22.867)" />
+                            </g>
+                            <rect width="7.513" height="12.209" x="17.414" y="22.867" fill="url(#f909idb)" rx="3.757" transform="rotate(-45 17.414 22.867)" />
+                            <path fill="url(#f909id3)" fill-rule="evenodd" d="M12.906 23.797c5.972 0 10.813-4.841 10.813-10.813c0-5.971-4.841-10.812-10.813-10.812c-5.971 0-10.812 4.84-10.812 10.812s4.84 10.813 10.812 10.813m0-1.75a9.063 9.063 0 1 0 0-18.125a9.063 9.063 0 0 0 0 18.125" clip-rule="evenodd" />
+                            <g filter="url(#f909id8)">
+                                <path fill="url(#f909id4)" fill-rule="evenodd" d="M12.906 23.552c5.837 0 10.568-4.731 10.568-10.568S18.743 2.416 12.906 2.416S2.338 7.148 2.338 12.984c0 5.837 4.732 10.568 10.568 10.568m0-1.71a8.858 8.858 0 1 0 0-17.715a8.858 8.858 0 0 0 0 17.715" clip-rule="evenodd" />
+                                <path fill="url(#f909idc)" fill-rule="evenodd" d="M12.906 23.552c5.837 0 10.568-4.731 10.568-10.568S18.743 2.416 12.906 2.416S2.338 7.148 2.338 12.984c0 5.837 4.732 10.568 10.568 10.568m0-1.71a8.858 8.858 0 1 0 0-17.715a8.858 8.858 0 0 0 0 17.715" clip-rule="evenodd" />
+                            </g>
+                            <g filter="url(#f909id9)">
+                                <circle cx="12.906" cy="12.984" r="9.295" fill="url(#f909id5)" />
+                            </g>
+                            <g filter="url(#f909ida)">
+                                <circle cx="12.906" cy="12.984" r="9.063" fill="#64d0ea" />
+                            </g>
+                            <ellipse cx="16.99" cy="8.443" fill="url(#f909id6)" rx="1.651" ry="2.033" transform="rotate(-38.896 16.99 8.443)" />
+                            <defs>
+                                <linearGradient id="f909id0" x1="18.044" x2="22.375" y1="33.231" y2="24.701" gradientUnits="userSpaceOnUse">
+                                    <stop stop-color="#a0659c" />
+                                    <stop offset="1" stop-color="#895792" />
+                                </linearGradient>
+                                <linearGradient id="f909id1" x1="21.16" x2="21.171" y1="23.398" y2="27.684" gradientUnits="userSpaceOnUse">
+                                    <stop stop-color="#6c3b74" />
+                                    <stop offset="1" stop-color="#845590" stop-opacity="0" />
+                                </linearGradient>
+                                <linearGradient id="f909id2" x1="25.026" x2="19.878" y1="31.198" y2="31.043" gradientUnits="userSpaceOnUse">
+                                    <stop offset=".115" stop-color="#703d7a" />
+                                    <stop offset="1" stop-color="#703d7a" stop-opacity="0" />
+                                </linearGradient>
+                                <linearGradient id="f909id3" x1="12.906" x2="12.906" y1="2.172" y2="23.797" gradientUnits="userSpaceOnUse">
+                                    <stop offset=".379" stop-color="#344a7d" />
+                                    <stop offset=".633" stop-color="#785790" />
+                                    <stop offset=".837" stop-color="#785790" />
+                                    <stop offset="1" stop-color="#9872a2" />
+                                </linearGradient>
+                                <linearGradient id="f909id4" x1="12.906" x2="12.906" y1="2.416" y2="23.552" gradientUnits="userSpaceOnUse">
+                                    <stop stop-color="#475890" />
+                                    <stop offset="1" stop-color="#7a4d87" />
+                                </linearGradient>
+                                <linearGradient id="f909id5" x1="12.906" x2="12.906" y1="3.689" y2="22.279" gradientUnits="userSpaceOnUse">
+                                    <stop stop-color="#204083" />
+                                    <stop offset="1" stop-color="#523573" />
+                                </linearGradient>
+                                <linearGradient id="f909id6" x1="16.99" x2="16.99" y1="6.409" y2="10.476" gradientUnits="userSpaceOnUse">
+                                    <stop stop-color="#dcdbf2" />
+                                    <stop offset=".209" stop-color="#dcdbf2" stop-opacity="0.848" />
+                                    <stop offset="1" stop-color="#dcdbf2" stop-opacity="0" />
+                                </linearGradient>
+                                <filter id="f909id7" width="11.833" height="12.083" x="17.97" y="18.861" color-interpolation-filters="sRGB" filterUnits="userSpaceOnUse">
+                                    <feFlood flood-opacity="0" result="BackgroundImageFix" />
+                                    <feBlend in="SourceGraphic" in2="BackgroundImageFix" result="shape" />
+                                    <feColorMatrix in="SourceAlpha" result="hardAlpha" values="0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 127 0" />
+                                    <feOffset dx="-1" dy="1" />
+                                    <feGaussianBlur stdDeviation="1.5" />
+                                    <feComposite in2="hardAlpha" k2="-1" k3="1" operator="arithmetic" />
+                                    <feColorMatrix values="0 0 0 0 0.4 0 0 0 0 0.239216 0 0 0 0 0.439216 0 0 0 1 0" />
+                                    <feBlend in2="shape" result="effect1_innerShadow_18_20461" />
+                                    <feColorMatrix in="SourceAlpha" result="hardAlpha" values="0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 127 0" />
+                                    <feOffset dy="-.25" />
+                                    <feGaussianBlur stdDeviation=".375" />
+                                    <feComposite in2="hardAlpha" k2="-1" k3="1" operator="arithmetic" />
+                                    <feColorMatrix values="0 0 0 0 0.639216 0 0 0 0 0.490196 0 0 0 0 0.643137 0 0 0 1 0" />
+                                    <feBlend in2="effect1_innerShadow_18_20461" result="effect2_innerShadow_18_20461" />
+                                    <feColorMatrix in="SourceAlpha" result="hardAlpha" values="0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 127 0" />
+                                    <feOffset dy="1" />
+                                    <feGaussianBlur stdDeviation=".75" />
+                                    <feComposite in2="hardAlpha" k2="-1" k3="1" operator="arithmetic" />
+                                    <feColorMatrix values="0 0 0 0 0.333333 0 0 0 0 0.27451 0 0 0 0 0.380392 0 0 0 1 0" />
+                                    <feBlend in2="effect2_innerShadow_18_20461" result="effect3_innerShadow_18_20461" />
+                                </filter>
+                                <filter id="f909id8" width="21.736" height="21.736" x="2.038" y="2.116" color-interpolation-filters="sRGB" filterUnits="userSpaceOnUse">
+                                    <feFlood flood-opacity="0" result="BackgroundImageFix" />
+                                    <feBlend in="SourceGraphic" in2="BackgroundImageFix" result="shape" />
+                                    <feGaussianBlur result="effect1_foregroundBlur_18_20461" stdDeviation=".15" />
+                                </filter>
+                                <filter id="f909id9" width="18.99" height="18.99" x="3.411" y="3.489" color-interpolation-filters="sRGB" filterUnits="userSpaceOnUse">
+                                    <feFlood flood-opacity="0" result="BackgroundImageFix" />
+                                    <feBlend in="SourceGraphic" in2="BackgroundImageFix" result="shape" />
+                                    <feGaussianBlur result="effect1_foregroundBlur_18_20461" stdDeviation=".1" />
+                                </filter>
+                                <filter id="f909ida" width="18.125" height="19.275" x="3.844" y="3.772" color-interpolation-filters="sRGB" filterUnits="userSpaceOnUse">
+                                    <feFlood flood-opacity="0" result="BackgroundImageFix" />
+                                    <feBlend in="SourceGraphic" in2="BackgroundImageFix" result="shape" />
+                                    <feColorMatrix in="SourceAlpha" result="hardAlpha" values="0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 127 0" />
+                                    <feOffset dy="1" />
+                                    <feGaussianBlur stdDeviation="1" />
+                                    <feComposite in2="hardAlpha" k2="-1" k3="1" operator="arithmetic" />
+                                    <feColorMatrix values="0 0 0 0 0.168627 0 0 0 0 0.603922 0 0 0 0 0.956863 0 0 0 1 0" />
+                                    <feBlend in2="shape" result="effect1_innerShadow_18_20461" />
+                                    <feColorMatrix in="SourceAlpha" result="hardAlpha" values="0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 127 0" />
+                                    <feOffset dy="-.15" />
+                                    <feGaussianBlur stdDeviation=".15" />
+                                    <feComposite in2="hardAlpha" k2="-1" k3="1" operator="arithmetic" />
+                                    <feColorMatrix values="0 0 0 0 0.137255 0 0 0 0 0.607843 0 0 0 0 0.984314 0 0 0 1 0" />
+                                    <feBlend in2="effect1_innerShadow_18_20461" result="effect2_innerShadow_18_20461" />
+                                </filter>
+                                <radialGradient id="f909idb" cx="0" cy="0" r="1" gradientTransform="rotate(92.442 -.259 21.504)scale(2.33336 5.42286)" gradientUnits="userSpaceOnUse">
+                                    <stop stop-color="#2f1a3d" />
+                                    <stop offset="1" stop-color="#532d64" stop-opacity="0" />
+                                </radialGradient>
+                                <radialGradient id="f909idc" cx="0" cy="0" r="1" gradientTransform="matrix(0 -5.125 9.53123 0 12.906 7.406)" gradientUnits="userSpaceOnUse">
+                                    <stop offset=".704" stop-color="#566298" />
+                                    <stop offset=".787" stop-color="#566298" stop-opacity="0" />
+                                </radialGradient>
+                            </defs>
+                        </g>
+                    </svg>
+                </li>
+                <li>
+                    <svg class="text-accent p-0 w-7 drop-shadow-lg" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+                        <path fill="currentColor" d="M11 10h2c1.414 0 2.121 0 2.56.44c.44.439.44 1.146.44 2.56v6c0-1.414 0-2.121.44-2.56C16.878 16 17.585 16 19 16s2.121 0 2.56.44c.44.439.44 1.146.44 2.56v3H2c0-1.414 0-2.121.44-2.56C2.878 19 3.585 19 5 19s2.121 0 2.56.44C8 19.878 8 20.585 8 22v-9c0-1.414 0-2.121.44-2.56C8.878 10 9.585 10 11 10m.146-6.977C11.526 2.34 11.716 2 12 2s.474.34.854 1.023l.098.176c.108.194.162.29.246.354c.085.064.19.088.4.135l.19.044c.738.167 1.107.25 1.195.532s-.164.577-.667 1.165l-.13.152c-.143.167-.215.25-.247.354s-.021.215 0 .438l.02.203c.076.785.114 1.178-.115 1.352c-.23.175-.576.015-1.267-.303l-.178-.082c-.197-.09-.295-.136-.399-.136s-.202.046-.399.136l-.178.082c-.691.318-1.037.478-1.267.303c-.23-.174-.191-.567-.115-1.352l.02-.203c.021-.223.032-.334 0-.438s-.104-.187-.247-.354l-.13-.152c-.503-.588-.755-.882-.667-1.165c.088-.282.457-.365 1.195-.532l.19-.044c.21-.047.315-.07.4-.135c.084-.064.138-.16.246-.354z" />
+                    </svg>
                 </li>
             </ul>
         </header>
 
-        <main class="py-16">
+        <main class="py-12">
             <slot></slot>
         </main>
 
-        <div class="btm-nav bg-base-content grid grid-cols-5 z-50">
+        <div class="btm-nav bg-base-300 grid grid-cols-5 z-10">
             <Link href="/">
-                <svg xmlns="http://www.w3.org/2000/svg" class="drop-shadow" width="2.5em" height="2.5em" viewBox="0 0 32 32">
+                <svg xmlns="http://www.w3.org/2000/svg" class="drop-shadow" width="2em" height="2em" viewBox="0 0 32 32">
                     <g fill="none">
                         <path fill="url(#fluentColorHome320)" d="M11 17h10v12H11z" />
                         <path fill="url(#fluentColorHome321)" d="M13.895 4.277a3.25 3.25 0 0 1 4.21 0l9.75 8.287A3.25 3.25 0 0 1 29 15.04V26.5a2.5 2.5 0 0 1-2.5 2.5H20v-9a2 2 0 0 0-1.991-2H13.99A2 2 0 0 0 12 20v9H5.5A2.5 2.5 0 0 1 3 26.5V15.04a3.25 3.25 0 0 1 1.145-2.476z" />
@@ -47,7 +160,7 @@
                 </svg>
             </Link>
             <button>
-                <svg xmlns="http://www.w3.org/2000/svg" class="drop-shadow" width="2.5em" height="2.5em" viewBox="0 0 128 128">
+                <svg xmlns="http://www.w3.org/2000/svg" class="drop-shadow" width="2em" height="2em" viewBox="0 0 128 128">
                     <radialGradient id="notoGlobeShowingAsiaAustralia0" cx="43.972" cy="29.066" r="90.951" gradientTransform="matrix(.6257 .78 -.5815 .4665 33.359 -18.792)" gradientUnits="userSpaceOnUse">
                         <stop offset=".506" stop-color="#17a1f3" />
                         <stop offset=".767" stop-color="#1b7ffa" />
@@ -73,7 +186,7 @@
                 </svg>
             </button>
             <Link href="/">
-                <svg xmlns="http://www.w3.org/2000/svg" class="drop-shadow" width="2.5em" height="2.5em" viewBox="0 0 64 64">
+                <svg xmlns="http://www.w3.org/2000/svg" class="drop-shadow" width="2em" height="2em" viewBox="0 0 64 64">
                     <path fill="#89664c" d="M3 29v32h58V29C61-10 3-9.4 3 29" />
                     <path fill="#594640" d="M7.2 31.2V61h49.5V31.2C56.8-5 7.2-4.5 7.2 31.2" />
                     <path fill="#a37d64" d="M8 31.7V61h48V31.7c0-35.8-48-35.2-48 0" />
@@ -88,7 +201,7 @@
                 </svg>
             </Link>
             <button>
-                <svg xmlns="http://www.w3.org/2000/svg" class="drop-shadow" width="2.5em" height="2.5em" viewBox="0 0 32 32">
+                <svg xmlns="http://www.w3.org/2000/svg" class="drop-shadow" width="2em" height="2em" viewBox="0 0 32 32">
                     <g fill="none">
                         <circle cx="16.002" cy="26.266" r="3.661" fill="url(#f118id5)" />
                         <circle cx="16.002" cy="26.266" r="3.661" fill="url(#f118id0)" />
@@ -196,7 +309,7 @@
                     :profileSrc="$page.props.auth.user.avatar"
                     :frameBorder="15"
                     :frameSize="70"
-                    :url="route('profile.user_profile')"
+                    :url="route('profile.user')"
                     class="relative w-32 drop-shadow"
                 />
             </div>

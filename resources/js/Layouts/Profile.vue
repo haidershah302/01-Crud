@@ -1,6 +1,6 @@
 <style scoped>
 .profile-container {
-    @apply pt-5 mb-5 shadow-2xl shadow-primary/20 pb-1;
+    @apply pt-5 mb-5 shadow-2xl shadow-primary/20 pb-1 bg-base-300;
 }
 .profile-container > .main-box {
     @apply flex w-full gap-4 px-5 mb-6 relative font-bold text-lg;
@@ -10,7 +10,7 @@
 }
 
 .profile-stats {
-    @apply flex justify-between gap-2 px-2 font-bold text-center;
+    @apply flex justify-between gap-2 px-2 font-bold text-center text-sm text-base-content;
 }
 </style>
 
@@ -29,7 +29,7 @@
 
                 <Avatar
                     :frameSrc="$page.props.assets + '/site_assets/frames/3.png'"
-                    :profileSrc="$page.props.auth.user.avatar"
+                    :profileSrc="user.avatar"
                     :frameBorder="25"
                     :frameSize="110"
                     url="/"
@@ -38,12 +38,12 @@
 
                 <div>
 
-                    <Link :href="route('profile.view', $page.props.auth.user.id)">
-                        {{ $page.props.auth.user.name }}
+                    <Link :href="route('profile.view', user.id)">
+                        {{ user.name }}
                     </Link>
 
                     <UniqueId>
-                        {{ 100100 + $page.props.auth.user.id }}
+                        {{ 100100 + user.id }}
                     </UniqueId>
 
                     <div>
@@ -131,66 +131,68 @@ import UniqueId from "@/Components/uniqueId.vue";
 import Badge from "@/Components/badge.vue";
 import SectionTitle from "@/Components/sectionTitle.vue";
 
+defineProps({
+    user: Object
+});
 
-let authUser = {
-    id: 1,
-    name: "Test User",
-    profile_picture: "https://img.daisyui.com/images/stock/photo-1534528741775-53994a69daeb.webp",
-    frame: {
-        src: '/assets/frames/3.png',
-        bdr_box: 25,
-        size: 110,
-    },
-    room: {
-        id: '123456',
-        name: 'Haseeb Room',
-        total_gift_interactions: 1123,
-        active_users: 3211,
-        allowed_seats: 15,
-        theme: {
-            background_image: 'assets/backgrounds/6.jpg',
-            frame: {
-                src: 'assets/frames/0.png',
-                bdr_box: '20px',
-                size: '75px',
-            },
-            profile_picture: 'assets/room/seat.png',
-            color: '#5EE635FF',
-            textColor: '#ffffff',
-        },
-        members: [
-            {
-                id: 1,
-                name: 'User Name',
-                profile_picture: 'https://img.daisyui.com/images/stock/photo-1534528741775-53994a69daeb.webp',
-                room: {
-                    room_id: '123456',
-                },
-                frame: {
-                    src: 'assets/frames/6.png',
-                    bdr_box: 15,
-                    size: '90px',
-                },
-                interaction: {
-                    likes: 4,
-                    gifts_received: 8
-                }
-            },
-            {
-                id: 2,
-                name: 'User Name',
-                profile_picture: 'https://img.daisyui.com/images/stock/photo-1534528741775-53994a69daeb.webp',
-                room: {
-                    room_id: '123456',
-                },
-                frame: {
-                    src: 'assets/frames/4.png',
-                    bdr_box: 15,
-                    size: '90px',
-                }
-            }
-        ],
-    },
-}
-
+// let authUser = {
+//     id: 1,
+//     name: "Test User",
+//     profile_picture: "https://img.daisyui.com/images/stock/photo-1534528741775-53994a69daeb.webp",
+//     frame: {
+//         src: '/assets/frames/3.png',
+//         bdr_box: 25,
+//         size: 110,
+//     },
+//     room: {
+//         id: '123456',
+//         name: 'Haseeb Room',
+//         total_gift_interactions: 1123,
+//         active_users: 3211,
+//         allowed_seats: 15,
+//         theme: {
+//             background_image: 'assets/backgrounds/6.jpg',
+//             frame: {
+//                 src: 'assets/frames/0.png',
+//                 bdr_box: '20px',
+//                 size: '75px',
+//             },
+//             profile_picture: 'assets/room/seat.png',
+//             color: '#5EE635FF',
+//             textColor: '#ffffff',
+//         },
+//         members: [
+//             {
+//                 id: 1,
+//                 name: 'User Name',
+//                 profile_picture: 'https://img.daisyui.com/images/stock/photo-1534528741775-53994a69daeb.webp',
+//                 room: {
+//                     room_id: '123456',
+//                 },
+//                 frame: {
+//                     src: 'assets/frames/6.png',
+//                     bdr_box: 15,
+//                     size: '90px',
+//                 },
+//                 interaction: {
+//                     likes: 4,
+//                     gifts_received: 8
+//                 }
+//             },
+//             {
+//                 id: 2,
+//                 name: 'User Name',
+//                 profile_picture: 'https://img.daisyui.com/images/stock/photo-1534528741775-53994a69daeb.webp',
+//                 room: {
+//                     room_id: '123456',
+//                 },
+//                 frame: {
+//                     src: 'assets/frames/4.png',
+//                     bdr_box: 15,
+//                     size: '90px',
+//                 }
+//             }
+//         ],
+//     },
+// }
 </script>
