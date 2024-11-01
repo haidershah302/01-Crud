@@ -22,9 +22,9 @@ export default {
     plugins: [require('daisyui')],
     daisyui: {
         themes: [
-            'FlyLiveUi', 'FlyLiveUiDark',
+            'light', 'dark',
             {
-                FlyLiveUi: {
+                light: {
 
                     "primary": "#ec4899",
 
@@ -66,7 +66,7 @@ export default {
 
                     "error-content": "#fee2e2",
                 },
-                FlyLiveUiDark: {
+                dark: {
                     "primary": "#f43f5e",
 
                     "primary-content": "#ffe4e6",
@@ -109,7 +109,7 @@ export default {
                 }
             }
         ],
-        darkTheme: "FlyLiveUiDark",
+        darkTheme: "dark",
         styled: true,
     },
 };

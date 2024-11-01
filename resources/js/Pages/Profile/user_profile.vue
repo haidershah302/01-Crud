@@ -23,9 +23,7 @@
 <script setup>
     import Profile from "@/Layouts/Profile.vue";
 
-    defineOptions({
-        layout: Profile
-    })
+    defineOptions({layout: Profile});
 
     const menuElement = [
         {

@@ -34,8 +34,14 @@ Route::middleware('auth')->group(function () {
         return Inertia::render('Home');
     })->name('home');
 
-    Route::post('/logout', [AuthController::class, 'logout'])->name('logout');
+    Route::post('/logout', [AuthController::class, 'logout'])
+        ->name('logout');
 
     // Profile Pages
-    Route::inertia('/profile', 'Profile/user_profile')->name('profile.user_profile');
+    Route::inertia('/profile', 'Profile/user_profile')
+        ->name('profile.user_profile');
+
+    Route::inertia('/profile/view/{id}', function ($id){
+        dd($id);
+    })->name('profile.view');
 });

@@ -5,6 +5,7 @@ import { createApp, h } from 'vue';
 import {createInertiaApp, Head, Link} from '@inertiajs/vue3';
 import { ZiggyVue } from '../../vendor/tightenco/ziggy';
 import Default from "@/Layouts/Default.vue";
+import {startTheme} from './Composables/themeSwitch.js';
 
 
 createInertiaApp({
@@ -27,3 +28,4 @@ createInertiaApp({
 })
 
 
+startTheme();

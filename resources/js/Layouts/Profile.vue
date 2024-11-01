@@ -16,7 +16,7 @@
 
 <template>
     <div>
-        <Subheader from="/" goto="/profile/modify">
+        <Subheader from="/" goto="/">
             <h1 class="text-center mt-3">Profile</h1>
         </Subheader>
 
@@ -38,10 +38,12 @@
 
                 <div>
 
-                    <Link href="/">{{ $page.props.auth.user.name }}</Link>
+                    <Link :href="route('profile.view', $page.props.auth.user.id)">
+                        {{ $page.props.auth.user.name }}
+                    </Link>
 
                     <UniqueId>
-                        {{100100 + $page.props.auth.user.id}}
+                        {{ 100100 + $page.props.auth.user.id }}
                     </UniqueId>
 
                     <div>
