@@ -1,19 +1,21 @@
 <template>
-    <Link :href="url" class="room-avatar absolute_center rounded-full"
+    <div class="relative">
+        <Link :href="url" class="room-avatar absolute_center rounded-full"
               :style="`width: ${frameSize}px;height: ${frameSize}px;`"
-    >
-        <img
-            :style="`width: ${frameSize}px;`"
-            class="room_frame absolute_center"
-            :src="frameSrc" alt=""
         >
-        <img
-            :style="`border: ${frameBorder}px solid transparent;`"
-            class="room_seat"
-            :src="profileSrc"
-            alt=""
-        >
-    </Link>
+            <img
+                :style="`width: ${frameSize}px;`"
+                class="room_frame absolute_center"
+                :src="frameSrc" alt=""
+            >
+            <img
+                :style="`border: ${frameBorder}px solid transparent;`"
+                class="room_seat"
+                :src="profileSrc"
+                alt=""
+            >
+        </Link>
+    </div>
 </template>
 
 <script setup>
