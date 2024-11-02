@@ -1,6 +1,24 @@
+<style scoped>
+.header {
+    @apply fixed top-0 bg-base-300 z-10 w-full flex px-4 pt-2 pb-0;
+}
+
+.footer {
+    @apply grid grid-cols-5 items-center fixed bottom-0
+    bg-base-300 z-10 gap-0 px-1 -mb-2 overflow-visible pb-1;
+}
+.footer > * {
+    @apply w-full h-full flex justify-center items-center py-3;
+}
+
+.footer > * svg {
+    @apply drop-shadow-lg h-8;
+}
+</style>
+
 <template>
     <div>
-        <header class="fixed top-0 bg-base-300 z-10 w-full flex px-4 pt-2 pb-0">
+        <header class="header">
             <div class="flex-1">
                 <Link href="/" class="btn btn-ghost btn-sm inline-block text-xl p-0 m-0">
                     <img :src="$page.props.assets + '/site_assets/brand/logo.png'" class="w-12 drop-shadow-lg" alt="">
@@ -135,9 +153,9 @@
             <slot></slot>
         </main>
 
-        <div class="btm-nav bg-base-300 grid grid-cols-5 z-10">
+        <div class="footer">
             <Link href="/">
-                <svg xmlns="http://www.w3.org/2000/svg" class="drop-shadow" width="2em" height="2em" viewBox="0 0 32 32">
+                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 32 32">
                     <g fill="none">
                         <path fill="url(#fluentColorHome320)" d="M11 17h10v12H11z" />
                         <path fill="url(#fluentColorHome321)" d="M13.895 4.277a3.25 3.25 0 0 1 4.21 0l9.75 8.287A3.25 3.25 0 0 1 29 15.04V26.5a2.5 2.5 0 0 1-2.5 2.5H20v-9a2 2 0 0 0-1.991-2H13.99A2 2 0 0 0 12 20v9H5.5A2.5 2.5 0 0 1 3 26.5V15.04a3.25 3.25 0 0 1 1.145-2.476z" />
@@ -159,8 +177,8 @@
                     </g>
                 </svg>
             </Link>
-            <button>
-                <svg xmlns="http://www.w3.org/2000/svg" class="drop-shadow" width="2em" height="2em" viewBox="0 0 128 128">
+            <Link href="/">
+                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 128 128">
                     <radialGradient id="notoGlobeShowingAsiaAustralia0" cx="43.972" cy="29.066" r="90.951" gradientTransform="matrix(.6257 .78 -.5815 .4665 33.359 -18.792)" gradientUnits="userSpaceOnUse">
                         <stop offset=".506" stop-color="#17a1f3" />
                         <stop offset=".767" stop-color="#1b7ffa" />
@@ -184,9 +202,9 @@
                     </radialGradient>
                     <path fill="url(#notoGlobeShowingAsiaAustralia2)" d="M87.13 105.61s6.88-4.11 7.05-4.83c.16-.71-.16-2.03-.27-2.36s-.93-.66-1.32-1.21c-.38-.55-.16-1.1-.16-1.92s-2.36-3.45-2.52-4.33s0-2.63 0-2.63s-.77-1.37-1.15-2.03s-.71-1.7-1.04-2.3s-.49-.93-1.04-.93s-.88.16-.93.6s-.49 2.08-.49 2.74s-1.26 3.18-1.48 3.67s-1.21.93-2.19.88c-.99-.05-1.97-.88-2.69-1.53c-.4-.37-1.42-1.26-1.37-1.97c0 0 1.1-1.53.82-2.69s-1.32-1.15-3.51-1.42s-4.82.22-5.59.71s-.37 2.4-1.97 2.74c-.77.16-1.59-.27-1.81-.71s-.88-.6-1.59-.16s-4.17 3.45-4.55 3.78s-.44 1.64-.77 2.14s-2.52 1.32-3.07 1.64c-.55.33-.93.11-1.26.27s-1.75.05-1.92 3.34c-.06 1.11.71 2.47 1.32 3.73c.6 1.26 2.69 5.37 2.96 6.08s-.22 1.15-.49 1.37c-.6.49.66 1.64 2.52 1.75c1.81.11 2.96-.49 4.11-.33c.91.13 1.75-.93 2.74-1.21c.99-.27 4.99-.77 6.41-.55s1.86 1.12 1.92 1.48c.11.71 6.77-1.16 6.77-1.16z" />
                 </svg>
-            </button>
+            </Link>
             <Link href="/">
-                <svg xmlns="http://www.w3.org/2000/svg" class="drop-shadow" width="2em" height="2em" viewBox="0 0 64 64">
+                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64">
                     <path fill="#89664c" d="M3 29v32h58V29C61-10 3-9.4 3 29" />
                     <path fill="#594640" d="M7.2 31.2V61h49.5V31.2C56.8-5 7.2-4.5 7.2 31.2" />
                     <path fill="#a37d64" d="M8 31.7V61h48V31.7c0-35.8-48-35.2-48 0" />
@@ -200,8 +218,8 @@
                     <path fill="#ffd664" d="M53.8 32.5c0 1.6-1.3 2.9-2.9 2.9S48 34.1 48 32.5s1.3-2.9 2.9-2.9s2.9 1.3 2.9 2.9" />
                 </svg>
             </Link>
-            <button>
-                <svg xmlns="http://www.w3.org/2000/svg" class="drop-shadow" width="2em" height="2em" viewBox="0 0 32 32">
+            <Link href="/">
+                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 32 32">
                     <g fill="none">
                         <circle cx="16.002" cy="26.266" r="3.661" fill="url(#f118id5)" />
                         <circle cx="16.002" cy="26.266" r="3.661" fill="url(#f118id0)" />
@@ -302,7 +320,7 @@
                         </defs>
                     </g>
                 </svg>
-            </button>
+            </Link>
             <div>
                 <Avatar
                     :frameSrc="$page.props.assets + '/site_assets/frames/3.png'"
@@ -310,7 +328,7 @@
                     :frameBorder="15"
                     :frameSize="70"
                     :url="route('profile.user')"
-                    class="relative w-32 drop-shadow"
+                    class="w-32 drop-shadow -mt-5"
                 />
             </div>
         </div>

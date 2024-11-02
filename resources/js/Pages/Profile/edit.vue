@@ -47,7 +47,7 @@
 
 <template>
     <div>
-        <Subheader from="/" goto="/">
+        <Subheader :from="route('profile.user')">
             <div class="h-full w-ful flex flex-col justify-center">
                 <h1 class="text-center">Modify Profile</h1>
             </div>

@@ -20,6 +20,10 @@
 import BannerCarousel from "@/Components/bannerCarousel.vue";
 import HomeCarousel from "@/Components/homeCarousel.vue";
 import RoomGrid from "@/Components/roomGrid.vue";
+import Default from "@/Layouts/Default.vue";
+defineOptions({
+    layout: Default
+})
 </script>
 
 <style scoped>

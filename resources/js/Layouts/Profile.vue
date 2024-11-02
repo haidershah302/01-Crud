@@ -16,8 +16,8 @@
 
 <template>
     <div>
-        <Subheader from="/" :goto="route('profile.edit')">
-            <h1 class="text-center mt-3">Profile</h1>
+        <Subheader :from="route('home')" class="bg-base-300" :goto="route('profile.edit')">
+            <h1 class="text-center">Profile</h1>
         </Subheader>
 
         <div class="h-12"></div>

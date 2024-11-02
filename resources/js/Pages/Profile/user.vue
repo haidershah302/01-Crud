@@ -11,7 +11,7 @@
                 <h2>{{ element.name }}</h2>
             </div>
 
-            <Link :href="element.url" class="btn btn-ghost p-0 shadow-inner w-2/12">
+            <Link :href="route(element.url)" class="btn btn-ghost p-0 shadow-inner w-2/12">
                 <svg xmlns="http://www.w3.org/2000/svg" width="2.5em" height="2.5em" viewBox="0 0 24 24">
                     <path fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="m10 17l5-5m0 0l-5-5" />
                 </svg>
@@ -29,49 +29,49 @@
         {
             name: 'Wallet',
             icon: 'ion:wallet',
-            url: '/',
+            url: 'profile.recharge',
             class: 'btn-success shadow-md shadow-success',
         },
         {
             name: 'Mall',
             icon: 'ic:baseline-store-mall-directory',
-            url: '/',
+            url: 'home',
             class: 'btn-primary shadow-md shadow-primary',
         },
         {
             name: 'Level',
             icon: 'fa6-solid:crown',
-            url: '/',
+            url: 'home',
             class: 'btn-warning shadow-md shadow-warning',
         },
         {
             name: 'Vip',
             icon: 'lets-icons:dimond-alt-fill',
-            url: '/',
+            url: 'home',
             class: 'btn-secondary shadow-md shadow-secondary',
         },
         {
             name: 'My Agency',
             icon: 'map:insurance-agency',
-            url: '/',
+            url: 'home',
             class: 'btn-accent shadow-md shadow-accent',
         },
         {
             name: 'My Income',
             icon: 'fontisto:dollar',
-            url: '/',
+            url: 'home',
             class: 'btn-success shadow-md shadow-success',
         },
         {
             name: 'Feed Back',
             icon: 'fluent:person-feedback-28-filled',
-            url: '/',
+            url: 'home',
             class: 'btn-primary shadow-md shadow-primary',
         },
         {
             name: 'Settings',
             icon: 'solar:settings-bold',
-            url: '/',
+            url: 'home',
             class: 'btn-info shadow-md shadow-info',
         },
     ]

@@ -48,4 +48,12 @@ Route::middleware('auth')->group(function () {
     })->name('profile.edit');
 
     Route::post('/profile/edit', [AuthController::class, 'edit'])->name('profile.edit.post');
+
+    Route::get('/profile/recharge', function (){
+        return Inertia::render('Profile/recharge');
+    })->name('profile.recharge');
+
+    Route::get('/profile/exchange', function (){
+        return Inertia::render('Profile/exchange');
+    })->name('profile.exchange');
 });
