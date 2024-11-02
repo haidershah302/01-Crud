@@ -13,7 +13,7 @@
 }
 
 .selectable-input > div {
-    @apply bg-base-100 rounded-box z-10 shadow-2xl pt-3 mt-2 absolute w-full min-w-80;
+    @apply bg-base-100 rounded-box z-10 shadow-2xl pt-3 mt-2 absolute w-full min-w-60;
 }
 
 .selectable-input > div > label {
@@ -39,9 +39,7 @@
         <!-- Country Selection Dropdown button -->
         <button type="button" @click="dropdown_open = !dropdown_open">
             <p v-if="model.length">
-                <img
-                    :src="`https://flagcdn.com/w80/${model[0].toLowerCase()}.png`"
-                    :alt="model[1]">
+                <img :src="`https://flagcdn.com/w80/${model[0].toLowerCase()}.png`" :alt="model[1]">
                 <span v-show="typeIs !== 'small'">{{ model[1] }}</span>
             </p>
             <span v-else>{{typeIs === 'small' ? 'Select' : 'Select Country'}}</span>

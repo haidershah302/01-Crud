@@ -20,7 +20,6 @@ class User extends Authenticatable
      * @var array<int, string>
      */
     protected $fillable = [
-        'uid',
         'google_id',
         'name',
         'phone',
@@ -29,6 +28,7 @@ class User extends Authenticatable
         'dob',
         'avatar',
         'email',
+        'signature',
         'password',
     ];
 
@@ -52,13 +52,5 @@ class User extends Authenticatable
         return [
             'password' => 'hashed',
         ];
-    }
-    protected static function boot()
-    {
-        parent::boot();
-
-        static::creating(function ($model) {
-            $model->uid = (string) Str::uuid();
-        });
     }
 }

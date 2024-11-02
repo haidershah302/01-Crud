@@ -42,4 +42,10 @@ Route::middleware('auth')->group(function () {
     Route::get('/profile/view/{user}', function (\App\Models\User $user){
         return Inertia::render('Profile/view', ['user' => $user]);
     })->name('profile.view');
+
+    Route::get('/profile/edit', function (){
+        return Inertia::render('Profile/edit', ['user' => auth()->user()]);
+    })->name('profile.edit');
+
+    Route::post('/profile/edit', [AuthController::class, 'edit'])->name('profile.edit.post');
 });

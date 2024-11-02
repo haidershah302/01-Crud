@@ -10,13 +10,13 @@
 }
 
 .profile-stats {
-    @apply flex justify-between gap-2 px-2 font-bold text-center text-sm text-base-content;
+    @apply flex justify-between gap-2 px-1 font-bold text-center text-sm drop-shadow-lg;
 }
 </style>
 
 <template>
     <div>
-        <Subheader from="/" goto="/">
+        <Subheader from="/" :goto="route('profile.edit')">
             <h1 class="text-center mt-3">Profile</h1>
         </Subheader>
 
@@ -33,7 +33,7 @@
                     :frameBorder="25"
                     :frameSize="110"
                     url="/"
-                    class="w-28"
+                    class="w-28 drop-shadow-xl"
                 />
 
                 <div>

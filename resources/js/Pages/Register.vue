@@ -208,7 +208,6 @@ defineOptions({
 
 
 // Variables
-const showPermissionPopup = ref(false);
 const selectedCountry = ref({});
 const phone_body = ref(null);
 let avatar_preview = ref(null);
