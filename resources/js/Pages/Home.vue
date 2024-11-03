@@ -1,7 +1,7 @@
 <template>
     <div>
         <div class="flex justify-end pt-3 pr-2 gap-2 relative z-10">
-            <button class="home-button">My Room</button>
+            <Link :href="route('myRoom')" class="home-button">My Room</Link>
             <button class="home-button !bg-accent/30">Popular</button>
             <button class="home-button">Explore</button>
             <button class="home-button">Follow</button>

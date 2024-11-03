@@ -144,7 +144,7 @@ defineProps({
 //         bdr_box: 25,
 //         size: 110,
 //     },
-//     room: {
+//     Room: {
 //         id: '123456',
 //         name: 'Haseeb Room',
 //         total_gift_interactions: 1123,
@@ -157,7 +157,7 @@ defineProps({
 //                 bdr_box: '20px',
 //                 size: '75px',
 //             },
-//             profile_picture: 'assets/room/seat.png',
+//             profile_picture: 'assets/Room/seat.png',
 //             color: '#5EE635FF',
 //             textColor: '#ffffff',
 //         },
@@ -166,7 +166,7 @@ defineProps({
 //                 id: 1,
 //                 name: 'User Name',
 //                 profile_picture: 'https://img.daisyui.com/images/stock/photo-1534528741775-53994a69daeb.webp',
-//                 room: {
+//                 Room: {
 //                     room_id: '123456',
 //                 },
 //                 frame: {
@@ -183,7 +183,7 @@ defineProps({
 //                 id: 2,
 //                 name: 'User Name',
 //                 profile_picture: 'https://img.daisyui.com/images/stock/photo-1534528741775-53994a69daeb.webp',
-//                 room: {
+//                 Room: {
 //                     room_id: '123456',
 //                 },
 //                 frame: {

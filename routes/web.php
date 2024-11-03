@@ -3,6 +3,7 @@
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\ExchangeHistoryController;
 use App\Http\Controllers\ProfileController;
+use App\Models\RoomController;
 use Illuminate\Support\Facades\Route;
 
 
@@ -47,4 +48,10 @@ Route::controller(ExchangeHistoryController::class)->middleware('auth')->group(f
     Route::get('profile/history/exchange', 'index')->name('exchange.history');
 
     Route::post('/profile/increment/diamonds', 'incrementDiamonds')->name('profile.increment.diamonds');
+});
+
+Route::controller(RoomController::class)->middleware('auth')->group(function () {
+
+    Route::get('/myRoom', 'myRoomView')->name('myRoom');
+
 });

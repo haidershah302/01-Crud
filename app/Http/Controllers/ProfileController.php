@@ -12,7 +12,6 @@ class ProfileController extends Controller
     {
         return Inertia::render('Profile/user', ['user' => auth()->user()]);
     }
-
     public function view(User $user)
     {
         return Inertia::render('Profile/view', ['user' => $user]);
@@ -48,7 +47,6 @@ class ProfileController extends Controller
 
         return redirect()->route('profile.user');
     }
-
     public function rechargeView()
     {
         return Inertia::render('Profile/recharge');
@@ -57,7 +55,6 @@ class ProfileController extends Controller
     {
         return Inertia::render('Profile/exchange');
     }
-
     public function incrementCoin(Request $request)
     {
         $request->validate([
