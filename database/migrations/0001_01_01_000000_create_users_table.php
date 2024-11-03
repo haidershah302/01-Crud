@@ -27,6 +27,8 @@ return new class extends Migration
             $table->bigInteger('coins')->nullable()->default(0);
             $table->bigInteger('diamonds')->nullable()->default(0);
 
+            $table->string('role')->nullable()->default('general');
+
             $table->string('password');
             $table->rememberToken();
             $table->timestamps();

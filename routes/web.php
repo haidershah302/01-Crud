@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\AuthController;
+use App\Http\Controllers\ExchangeHistoryController;
 use App\Http\Controllers\ProfileController;
 use Illuminate\Support\Facades\Route;
 
@@ -40,6 +41,10 @@ Route::controller(ProfileController::class)->middleware('auth')->group(function 
     Route::get('/profile/exchange', 'exchangeView')->name('profile.exchange');
 
     Route::post('/profile/increment/coin', 'incrementCoin')->name('profile.increment.coin');
+});
+
+Route::controller(ExchangeHistoryController::class)->middleware('auth')->group(function () {
+    Route::get('profile/history/exchange', 'index')->name('exchange.history');
 
     Route::post('/profile/increment/diamonds', 'incrementDiamonds')->name('profile.increment.diamonds');
 });

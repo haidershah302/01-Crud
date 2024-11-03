@@ -22,9 +22,9 @@
                         <rect width="18" height="2" x="3" y="6" fill="currentColor" rx=".94" ry=".94" />
                     </svg>
                 </Link>
+
+                <slot name="actions" />
             </div>
         </div>
     </div>
 </template>
-<script setup lang="ts">
-</script>

@@ -80,20 +80,15 @@
 <script setup>
 import RechargeRate from "@/Components/rechargRate.vue";
 import Subheader from "@/Components/subheader.vue";
-
-
 function abbr(num) {
-    if (String(num).length < 3)
-    {
-        return Math.floor(num/1000) + '';
-    }
-    else if (String(num).length < 7)
-    {
-        return Math.floor(num/1000) + 'K';
-    }
-    else
-    {
-        return Math.floor(num/1000000) + 'M';
+    if (num < 100) {
+        return num;
+    } else if (num < 1000) {
+        return num;
+    } else if (num < 1000000) {
+        return (num / 1000).toFixed(1) + 'K';
+    } else {
+        return (num / 1000000).toFixed(1) + 'M';
     }
 }
 </script>
