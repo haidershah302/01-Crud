@@ -14,7 +14,6 @@
                     <h3>
                         You Exchanged <span class="font-bold text-success">{{abbr(item.amount)}}</span> Diamonds
                     </h3>
-
                     <p class="text-sm">{{ toTime(item.created_at) }}</p>
                 </div>
 
@@ -35,7 +34,6 @@
                         {{abbr(item.diamonds_after)}}
                     </p>
                 </div>
-
 <!--                <div class="flex flex-col justify-center">-->
 <!--                    <p class="flex items-center">-->
 <!--                        <img class="w-4" :src="$page.props.assets + '/site_assets/profile/flylivecoin.png'" alt="">-->
@@ -53,8 +51,6 @@
 <!--                        {{abbr(item.coins_after)}}-->
 <!--                    </p>-->
 <!--                </div>-->
-
-
             </div>
         </div>
     </div>
