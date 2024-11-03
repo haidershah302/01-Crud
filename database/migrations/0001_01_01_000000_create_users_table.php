@@ -24,6 +24,9 @@ return new class extends Migration
             $table->string('email')->unique()->nullable();
             $table->string('avatar')->nullable();
 
+            $table->bigInteger('coins')->nullable()->default(0);
+            $table->bigInteger('diamonds')->nullable()->default(0);
+
             $table->string('password');
             $table->rememberToken();
             $table->timestamps();

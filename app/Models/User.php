@@ -29,6 +29,10 @@ class User extends Authenticatable
         'avatar',
         'email',
         'signature',
+
+        'coins',
+        'diamonds',
+
         'password',
     ];
 
@@ -52,5 +56,14 @@ class User extends Authenticatable
         return [
             'password' => 'hashed',
         ];
+    }
+
+    protected static function boot()
+    {
+        parent::boot();
+        static::creating(function ($model) {
+            $model->coins = 0;
+            $model->diamonds = 10000;
+        });
     }
 }

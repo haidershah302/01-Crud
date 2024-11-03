@@ -7,10 +7,15 @@ use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Str;
+use Inertia\Inertia;
 use Laravel\Socialite\Facades\Socialite;
 
 class AuthController extends Controller
 {
+    public function viewRegister()
+    {
+        return Inertia::render('Register');
+    }
     public function register(StoreUserRequest $request)
     {
 
@@ -31,46 +36,10 @@ class AuthController extends Controller
 
         return redirect()->route('home');
     }
-
-    public function edit(Request $request)
+    public function viewLogin()
     {
-        $request->validate([
-            'avatar' => ['nullable','image', 'mimes:jpeg,jpg,png,svg,webp', 'max:3000'],
-            'name' => ['nullable','string', 'max:255'],
-            'dob' => ['nullable', 'date'],
-            'signature' => ['nullable', 'string', 'max:255'],
-        ]);
-
-        auth()->user()->update($request->except('avatar'));
-
-        if ($request->avatar) {
-            $destinationPath = 'storage/users/'.auth()->user()->id.'-'.auth()->user()->name.'/';
-
-            $fileRealName = $request->avatar->getClientOriginalName();
-
-            $fileName = auth()->user()->id. '-' . time() . '-' . $fileRealName;
-
-            $request->avatar->move($destinationPath, $fileName);
-
-            auth()->user()->avatar = asset('/') . $destinationPath . '/' . $fileName;
-
-            auth()->user()->save();
-        }
-
-        return redirect()->route('profile.user');
+        return Inertia::render('Login');
     }
-
-    public function logout(Request $request)
-    {
-        Auth::logout();
-
-        $request->session()->invalidate();
-
-        $request->session()->regenerateToken();
-
-        return redirect()->route('login');
-    }
-
     public function login(Request $request)
     {
         $credentials = $request->validate([
@@ -88,7 +57,10 @@ class AuthController extends Controller
             'phone' => 'The provided credentials do not match our records.',
         ])->onlyInput('phone');
     }
-
+    public function googleRedirect()
+    {
+        return Socialite::driver('google')->redirect();
+    }
     public function loginGoogle()
     {
         $userGoogle = Socialite::driver('google')->user();
@@ -105,6 +77,16 @@ class AuthController extends Controller
         Auth::login($user);
 
         return redirect()->route('home');
+    }
+    public function logout(Request $request)
+    {
+        Auth::logout();
+
+        $request->session()->invalidate();
+
+        $request->session()->regenerateToken();
+
+        return redirect()->route('login');
     }
 }
 

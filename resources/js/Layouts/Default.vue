@@ -1,6 +1,6 @@
 <style scoped>
 .header {
-    @apply fixed top-0 bg-base-300 z-10 w-full flex px-4 pt-2 pb-0;
+    @apply fixed top-0 bg-base-300 z-20 w-full flex px-4 pt-2 pb-0;
 }
 
 .footer {

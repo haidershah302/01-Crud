@@ -1,3 +1,22 @@
+<style scoped>
+
+.room-avatar {
+    position: relative;
+    border-radius: 100%;
+}
+
+.room_seat {
+    border-radius: 100%;
+    width: 100%;
+    height: 100%;
+}
+
+.absolute_center {
+    position: absolute;
+    top: 50%;left: 50%;
+    transform: translate(-50%, -50%);
+}
+</style>
 <template>
     <div class="relative">
         <Link :href="url" class="room-avatar absolute_center rounded-full"
@@ -27,22 +46,3 @@ defineProps({
     url: String,
 })
 </script>
-<style scoped>
-
-.room-avatar {
-    position: relative;
-    border-radius: 100%;
-}
-
-.room_seat {
-    border-radius: 100%;
-    width: 100%;
-    height: 100%;
-}
-
-.absolute_center {
-    position: absolute;
-    top: 50%;left: 50%;
-    transform: translate(-50%, -50%);
-}
-</style>

@@ -108,7 +108,7 @@
             <!-- Gender Select Field -->
             <div class="flex justify-between">
                 <h2 class="text-xl">Gender:</h2>
-                <p class="mb-4 text-lg">{{user.gender.toUpperCase()}}</p>
+                <p class="mb-4 text-lg">{{user.gender}}</p>
             </div>
 
             <!-- Date of Birth Select Field -->

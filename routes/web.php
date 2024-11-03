@@ -1,59 +1,45 @@
 <?php
 
 use App\Http\Controllers\AuthController;
+use App\Http\Controllers\ProfileController;
 use Illuminate\Support\Facades\Route;
-use Inertia\Inertia;
-use Laravel\Socialite\Facades\Socialite;
 
-Route::middleware('guest')->group(function () {
-
-    Route::get('/register', function (){
-        return Inertia::render('Register');
-    })->name('register');
-    Route::post('/register', [AuthController::class, 'register'])->name('register.post');
-
-    Route::get('/login', function (){
-        return Inertia::render('Login');
-    })->name('login');
-    Route::post('/login', [AuthController::class, 'login'])->name('login.post');
-
-
-
-
-    Route::get('/auth/google/redirect', function () {
-        return Socialite::driver('google')->redirect();
-    })->name('google.redirect');
-
-    Route::get('/auth/google/callback', [AuthController::class, 'loginGoogle'])->name('google.callback');
-
-
-});
 
 Route::middleware('auth')->group(function () {
     Route::inertia('/', 'Home')->name('home');
 
     Route::post('/logout', [AuthController::class, 'logout'])->name('logout');
+});
 
-    // Profile Pages
-    Route::get('/profile', function (){
-        return Inertia::render('Profile/user', ['user' => auth()->user()]);
-    })->name('profile.user');
+Route::controller(AuthController::class)->middleware('guest')->group(function () {
 
-    Route::get('/profile/view/{user}', function (\App\Models\User $user){
-        return Inertia::render('Profile/view', ['user' => $user]);
-    })->name('profile.view');
+    Route::get('/register', 'viewRegister')->name('register');
+    Route::post('/register', 'register')->name('register.post');
 
-    Route::get('/profile/edit', function (){
-        return Inertia::render('Profile/edit', ['user' => auth()->user()]);
-    })->name('profile.edit');
+    Route::get('/login', 'viewLogin')->name('login');
+    Route::post('/login', 'login')->name('login.post');
 
-    Route::post('/profile/edit', [AuthController::class, 'edit'])->name('profile.edit.post');
 
-    Route::get('/profile/recharge', function (){
-        return Inertia::render('Profile/recharge');
-    })->name('profile.recharge');
+    Route::get('/auth/google/redirect', 'googleRedirect')->name('google.redirect');
+    Route::get('/auth/google/callback', 'loginGoogle')->name('google.callback');
 
-    Route::get('/profile/exchange', function (){
-        return Inertia::render('Profile/exchange');
-    })->name('profile.exchange');
+});
+
+// Profile Pages
+Route::controller(ProfileController::class)->middleware('auth')->group(function () {
+    Route::get('/profile', 'user')->name('profile.user');
+
+    Route::get('/profile/view/{user}', 'view')->name('profile.view');
+
+    Route::get('/profile/edit', 'editView')->name('profile.edit');
+
+    Route::post('/profile/edit', 'editPost')->name('profile.edit.post');
+
+    Route::get('/profile/recharge', 'rechargeView')->name('profile.recharge');
+
+    Route::get('/profile/exchange', 'exchangeView')->name('profile.exchange');
+
+    Route::post('/profile/increment/coin', 'incrementCoin')->name('profile.increment.coin');
+
+    Route::post('/profile/increment/diamonds', 'incrementDiamonds')->name('profile.increment.diamonds');
 });
