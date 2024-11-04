@@ -14,3 +14,6 @@ input::-webkit-inner-spin-button {
 {
     @apply flex flex-col justify-center text-center place-items-center;
 }
+.flex-col-middle {
+    @apply flex flex-col justify-center;
+}
