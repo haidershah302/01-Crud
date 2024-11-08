@@ -5,7 +5,7 @@ namespace Database\Seeders;
 use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
 
-class RoomControllerSeeder extends Seeder
+class FrameSeeder extends Seeder
 {
     /**
      * Run the database seeds.

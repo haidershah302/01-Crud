@@ -3,7 +3,8 @@
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\ExchangeHistoryController;
 use App\Http\Controllers\ProfileController;
-use App\Models\RoomController;
+use App\Http\Controllers\RoomController;
+use App\Http\Controllers\RoomThemeController;
 use Illuminate\Support\Facades\Route;
 
 
@@ -52,12 +53,21 @@ Route::controller(ExchangeHistoryController::class)->middleware('auth')->group(f
 
 Route::controller(RoomController::class)->middleware('auth')->group(function () {
 
-    Route::get('/myRoom', 'myRoomView')->name('myRoom');
+    Route::get('/myRoom', 'myRoom')->name('myRoom');
+
+    Route::post('/myRoom/create', 'store')->name('myRoom.create');
 
 });
 
-Route::middleware('auth')->group(function () {
 
-    Route::inertia('/admin', 'Admin/index')->name('admin');
+Route::controller(RoomThemeController::class)->middleware('auth')->group(function () {
 
+    Route::get('/admin/room/theme', 'index')->name('admin.room.theme.index');
+
+    Route::get('/admin/room/theme/create', 'create')->name('admin.room.theme.create');
 });
+
+
+Route::inertia('/admin', 'Admin/index')
+    ->middleware('auth')
+    ->name('admin');

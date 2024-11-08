@@ -13,7 +13,7 @@
                 </Link>
             </li>
             <ul class="menu gap-5 mt-8">
-                <li v-for="menu in menuItems" class="glass bg-primary/10 rounded-xl">
+                <li v-for="menu in menuItems" class="glass rounded-xl">
                     <details>
                         <summary class="font-mono">{{ menu.title }}</summary>
                         <ul>
@@ -72,12 +72,12 @@ const menuItems = [
         title: 'Rooms',
         child: [
             {
-                title: 'All Rooms',
+                title: 'Index',
                 href: route('admin'),
             },
             {
-                title: 'Roles and Abilities',
-                href: route('admin'),
+                title: 'Theme',
+                href: route('admin.room.theme.index'),
             },
         ]
     },

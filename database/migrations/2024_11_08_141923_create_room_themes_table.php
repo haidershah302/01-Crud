@@ -11,8 +11,14 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('room_controllers', function (Blueprint $table) {
+        Schema::create('room_themes', function (Blueprint $table) {
             $table->id();
+            $table->foreignId('room_id')->constrained('rooms');
+            $table->string('background')->nullable();
+            $table->string('thumbnail')->nullable();
+            $table->string('color')->nullable();
+            $table->string('textColor')->nullable();
+
             $table->timestamps();
         });
     }
@@ -22,6 +28,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('room_controllers');
+        Schema::dropIfExists('room_themes');
     }
 };
