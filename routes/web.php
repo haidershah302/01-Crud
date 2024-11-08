@@ -55,3 +55,9 @@ Route::controller(RoomController::class)->middleware('auth')->group(function () 
     Route::get('/myRoom', 'myRoomView')->name('myRoom');
 
 });
+
+Route::middleware('auth')->group(function () {
+
+    Route::inertia('/admin', 'Admin/index')->name('admin');
+
+});

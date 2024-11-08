@@ -7,7 +7,6 @@
                 <stats />
 
                 <Seats :user="user[0]" />
-
             </div>
 
             <div class="actions-box">

@@ -1,11 +1,11 @@
 <style scoped>
 .header {
-    @apply fixed top-0 bg-base-300 z-20 w-full flex px-4 pt-2 pb-0;
+    @apply fixed top-0 z-20 w-full flex px-4 pt-2 pb-0 glass;
 }
 
 .footer {
-    @apply grid grid-cols-5 items-center fixed bottom-0
-    bg-base-300 z-10 gap-0 px-1 -mb-2 overflow-visible pb-1;
+    @apply grid grid-cols-5 items-center fixed bottom-0 glass
+    z-10 gap-0 px-1 -mb-2 overflow-visible pb-1;
 }
 .footer > * {
     @apply w-full h-full flex justify-center items-center py-3;
@@ -321,16 +321,13 @@
                     </g>
                 </svg>
             </Link>
-            <div>
-                <Avatar
-                    :frameSrc="$page.props.assets + '/site_assets/frames/3.png'"
-                    :profileSrc="$page.props.auth.user.avatar"
-                    :frameBorder="15"
-                    :frameSize="70"
-                    :url="route('profile.user')"
-                    class="w-32 drop-shadow -mt-5"
-                />
-            </div>
+            <Avatar
+                :frameSrc="$page.props.assets + '/site_assets/frames/3.png'"
+                :profileSrc="$page.props.auth.user.avatar"
+                :frameBorder="12"
+                :frameSize="60"
+                :url="route('profile.user')"
+            />
         </div>
     </div>
 </template>

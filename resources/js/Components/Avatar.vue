@@ -18,7 +18,7 @@
 }
 </style>
 <template>
-    <div class="relative">
+    <div class="relative" :style="`width: ${frameSize}px;height: ${frameSize}px;`">
         <Link :href="url" class="room-avatar absolute_center rounded-full"
               :style="`width: ${frameSize}px;height: ${frameSize}px;`"
         >
