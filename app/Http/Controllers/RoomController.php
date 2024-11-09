@@ -13,7 +13,7 @@ class RoomController extends Controller
 
     public function myRoom()
     {
-        if (!auth()->user()->room()->exists()){
+        if (auth()->user()->room === null){
             return Inertia::render('Room/create');
         } else {
             return Inertia::render('Room/myRoom');
@@ -26,7 +26,8 @@ class RoomController extends Controller
      */
     public function index()
     {
-        //
+        $rooms = Room::all();
+        return Inertia::render('Admin/Room/index', ['rooms' => $rooms]);
     }
 
     /**
@@ -42,14 +43,14 @@ class RoomController extends Controller
      */
     public function store(Request $request)
     {
-        $request->validate(['room_name' => 'required', 'string', 'max:255']);
+        $request->validate(['name' => 'required', 'string', 'max:255']);
 
         auth()->user()->room()->firstOrCreate([
-            'room_name' => $request->room_name,
+            'name' => $request->name,
             'user_id' => auth()->user()->id,
         ]);
 
-        return Inertia::render('Room/myRoom');
+        return redirect()->route('myRoom');
     }
 
     /**

@@ -73,7 +73,7 @@ const menuItems = [
         child: [
             {
                 title: 'Index',
-                href: route('admin'),
+                href: route('admin.room.index'),
             },
             {
                 title: 'Theme',

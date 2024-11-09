@@ -4,10 +4,8 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
 
-class frame extends Model
+class Frame extends Model
 {
-    protected $table = 'frames';
-
     protected $fillable = [
         'name',
         'price',
@@ -18,4 +16,14 @@ class frame extends Model
         'src',
         'size'
     ];
+
+    public function user()
+    {
+        return $this->belongsTo(User::class);
+    }
+
+    public function theme()
+    {
+        return $this->belongsTo(Theme::class);
+    }
 }

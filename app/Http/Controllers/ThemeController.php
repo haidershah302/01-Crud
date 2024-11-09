@@ -2,19 +2,19 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\RoomTheme;
-use App\Http\Requests\StoreRoomThemeRequest;
-use App\Http\Requests\UpdateRoomThemeRequest;
+use App\Models\Theme;
+use App\Http\Requests\StoreThemeRequest;
+use App\Http\Requests\UpdateThemeRequest;
 use Inertia\Inertia;
 
-class RoomThemeController extends Controller
+class ThemeController extends Controller
 {
     /**
      * Display a listing of the resource.
      */
     public function index()
     {
-        return Inertia::render('Admin/Room/Theme/index');
+        return Inertia::render('Admin/Room/Theme/index', ['themes' => Theme::all()]);
     }
 
     /**
@@ -28,7 +28,7 @@ class RoomThemeController extends Controller
     /**
      * Store a newly created resource in storage.
      */
-    public function store(StoreRoomThemeRequest $request)
+    public function store(StoreThemeRequest $request)
     {
         //
     }
@@ -36,7 +36,7 @@ class RoomThemeController extends Controller
     /**
      * Display the specified resource.
      */
-    public function show(RoomTheme $roomTheme)
+    public function show(Theme $theme)
     {
         //
     }
@@ -44,7 +44,7 @@ class RoomThemeController extends Controller
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit(RoomTheme $roomTheme)
+    public function edit(Theme $theme)
     {
         //
     }
@@ -52,7 +52,7 @@ class RoomThemeController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(UpdateRoomThemeRequest $request, RoomTheme $roomTheme)
+    public function update(UpdateThemeRequest $request, Theme $theme)
     {
         //
     }
@@ -60,7 +60,7 @@ class RoomThemeController extends Controller
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(RoomTheme $roomTheme)
+    public function destroy(Theme $theme)
     {
         //
     }

@@ -6,10 +6,12 @@
 .scrollbar-none {
     scrollbar-width: none;
 }
+
 input::-webkit-outer-spin-button,
 input::-webkit-inner-spin-button {
     -webkit-appearance: none;
 }
+
 .flex-it-middle
 {
     @apply flex flex-col justify-center text-center place-items-center;

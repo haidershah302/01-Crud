@@ -6,7 +6,41 @@
             </div>
 
             <div class="glass shadow-lg rounded-lg mb-5 h-64">
+                <table class="table">
+                    <!-- head -->
+                    <thead>
+                    <tr>
+                        <th>
+                            <label>
+                                <input type="checkbox" class="checkbox" />
+                            </label>
+                        </th>
+                        <th>Name</th>
+                        <th>Price</th>
+                        <th>Created At</th>
+                        <th>Updated At</th>
+                        <th></th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <tr v-for="theme in themes" :key="room.id">
+                        <th>
+                            <label>
+                                <input type="checkbox" class="checkbox" />
+                            </label>
+                        </th>
 
+                        <td>{{ theme.name }}</td>
+                        <td>{{ theme.price }}</td>
+                        <td>{{ toDate(theme.created_at) }}</td>
+                        <td>{{ toDate(theme.updated_at) }}</td>
+
+                        <th>
+                            <Link href="/" class="btn btn-primary btn-xs">details</Link>
+                        </th>
+                    </tr>
+                    </tbody>
+                </table>
             </div>
 
         </div>
@@ -14,8 +48,13 @@
 </template>
 <script setup>
 import Admin from "@/Layouts/Admin.vue";
+import {toDate} from "../../../../Composables/formateDateOrTime.js";
 
 defineOptions({
     layout: Admin
+})
+
+defineProps({
+    themes: Object
 })
 </script>

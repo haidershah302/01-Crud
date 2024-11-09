@@ -4,17 +4,18 @@
             <table class="table">
                 <!-- head -->
                 <thead>
-                <tr>
-                    <th>
-                        <label>
-                            <input type="checkbox" class="checkbox" />
-                        </label>
-                    </th>
-                    <th>Name</th>
-                    <th>Job</th>
-                    <th>Favorite Color</th>
-                    <th></th>
-                </tr>
+                    <tr>
+                        <th>
+                            <label>
+                                <input type="checkbox" class="checkbox" />
+                            </label>
+                        </th>
+                        <th>Name</th>
+                        <th>Status</th>
+                        <th>Created At</th>
+                        <th>Updated At</th>
+                        <th></th>
+                    </tr>
                 </thead>
                 <tbody>
                 <!-- row 1 -->
@@ -165,5 +166,9 @@
     import Admin from "@/Layouts/Admin.vue"
     defineOptions({
         layout: Admin
+    });
+
+    defineProps({
+        "rooms": Object
     })
 </script>

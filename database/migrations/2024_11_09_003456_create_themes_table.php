@@ -11,13 +11,18 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('room_themes', function (Blueprint $table) {
+        Schema::create('themes', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('room_id')->constrained('rooms');
+            $table->foreignId('user_id')->nullable();
+            $table->foreignId('room_id')->nullable();
+
+            $table->integer('price')->nullable()->default(0);
+            $table->string('name')->nullable()->unique();
             $table->string('background')->nullable();
             $table->string('thumbnail')->nullable();
             $table->string('color')->nullable();
-            $table->string('textColor')->nullable();
+            $table->string('text_color')->nullable();
+            $table->string('icons_color')->nullable();
 
             $table->timestamps();
         });
@@ -28,6 +33,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('room_themes');
+        Schema::dropIfExists('themes');
     }
 };

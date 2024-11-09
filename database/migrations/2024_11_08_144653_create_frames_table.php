@@ -13,6 +13,9 @@ return new class extends Migration
     {
         Schema::create('frames', function (Blueprint $table) {
             $table->id();
+            $table->foreignId('user_id');
+            $table->foreignId('theme_id');
+
             $table->string('name')->nullable()->unique();
             $table->bigInteger('price')->nullable();
             $table->longText('description')->nullable();

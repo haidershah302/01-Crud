@@ -64,8 +64,8 @@
                 <input
                     type="text"
                     id="name"
-                    v-model="formData.room_name"
-                    :class="formData.errors && formData.errors.room_name ? '!input-error !shadow-lg !shadow-error-content' : ''"
+                    v-model="formData.name"
+                    :class="formData.errors && formData.errors.name ? '!input-error !shadow-lg !shadow-error-content' : ''"
                 />
             </div>
             <!-- Submit Button -->
@@ -86,7 +86,7 @@ defineOptions({layout: Sub});
 
 // Variables End
 const formData = useForm({
-    room_name: null,
+    name: null,
 });
 const submitForm = () => {
     formData.post(route('myRoom.create'));

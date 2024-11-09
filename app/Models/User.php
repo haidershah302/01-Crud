@@ -73,4 +73,14 @@ class User extends Authenticatable
     {
         return $this->hasOne(Room::class);
     }
+
+    public function themes()
+    {
+        return $this->hasMany(Theme::class);
+    }
+
+    public function frame()
+    {
+        return $this->hasOne(Frame::class);
+    }
 }
