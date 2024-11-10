@@ -1,19 +1,19 @@
 <template>
-    <div class="grid grid-cols-5 gap-y-1 p-2">
+    <div class="grid grid-cols-5 text-center text-xs">
 
-        <div v-for="n in user.room.allowed_seats" class="flex-col-middle text-[--theme-text-color]">
+        <div v-for="n in user.room.allowed_seats" class="flex-col-middle text-[--theme-text-color]" style="height: 82px;">
             <Avatar
                 :frameSrc="user.room.theme.frame.src"
                 :profileSrc="user.room.theme.profile_picture"
-                :frameBorder="16"
-                :frameSize="60"
+                :frameBorder="13"
+                :frameSize="50"
                 url="/profile/view"
                 class="mx-auto"
             />
 
-            <p v-show="true" class="text-center font-bold text-xs">Name</p>
+            <p v-show="false" class="font-bold -mt-1">Name</p>
 
-            <button v-show="true" class="btn btn-xs gap-0 text-xs mx-auto btn-ghost">
+            <button v-show="false" class="btn btn-xs btn-ghost gap-0">
                 <svg
                     xmlns="http://www.w3.org/2000/svg"
                     class="size-4"

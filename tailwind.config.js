@@ -15,7 +15,7 @@ export default {
                 mono: ['Audiowide', ...defaultTheme.fontFamily.sans],
             },
             screens: {
-                'xs': '432px'
+                'sm' : '320px'
             }
         },
     },

@@ -5,9 +5,11 @@
     @apply text-sm;
 }
 
-.file-upload > label{
-    @apply mt-2 p-0 cursor-pointer border-dashed border-4 border-base-content/30
-    shadow-lg flex justify-center items-center h-64 w-40 rounded-lg;
+.file-upload > label
+{
+    @apply mt-2 p-0 cursor-pointer border-dashed border-4
+    border-base-content/30
+    shadow-lg flex justify-center items-center h-44 w-40 rounded-lg;
 }
 
 .file-upload > svg {
@@ -26,18 +28,11 @@
 .plain-text-input > input {
     @apply input input-bordered shadow-lg w-full;
 }
-
-.select-input {
-    @apply text-sm font-medium;
-}
-.select-input > select {
-    @apply select select-bordered w-full shadow-lg;
-}
 </style>
 
 <template>
     <div class="flex -mt-28 mx-24 gap-8 pb-64">
-        <form class="glass shadow-lg rounded-lg mb-5 p-4 flex-grow" @submit.prevent="submitForm">
+        <form class="glass shadow-lg rounded-lg mb-5 p-4" @submit.prevent="submitForm">
             <!-- Personal Information Section -->
             <div class="flex gap-4">
                 <!-- Avatar Upload Field -->
@@ -111,7 +106,7 @@
                     </label>
                 </div>
 
-                <div class="w-full">
+                <div>
                     <!-- Name Field -->
                     <div class="mb-4 plain-text-input">
                         <label for="name">
@@ -125,6 +120,7 @@
                             required
                         />
                     </div>
+                    <!-- Price Field -->
                     <div class="mb-4 plain-text-input">
                         <label for="name">
                             Price
@@ -137,20 +133,67 @@
                             required
                         />
                     </div>
+                    <!-- Color Pickers -->
+                    <div class="flex justify-between gap-3">
+                        <!-- Color Field -->
+                        <div>
+                            <label for="theme-color-picker">
+                                Theme Color
+                            </label>
+                            <input
+                                type="color"
+                                id="theme-color-picker"
+                                class="glass rounded shadow-lg block"
+                                v-model="formData.color"
+                                :class="formData.errors && formData.errors.color ? '!input-error !shadow-lg !shadow-error-content' : ''"
+                                required
+                            />
+                        </div>
+                        <!-- Text Color Field -->
+                        <div>
+                            <label for="text-color-picker">
+                                Text Color
+                            </label>
+                            <input
+                                type="color"
+                                id="text-color-picker"
+                                class="glass rounded shadow-lg block"
+                                v-model="formData.text_color"
+                                :class="formData.errors && formData.errors.text_color ? '!input-error !shadow-lg !shadow-error-content' : ''"
+                                required
+                            />
+                        </div>
+                        <!-- Icons Color Field -->
+                        <div>
+                            <label for="icon-color-picker">
+                                Icons Color
+                            </label>
+                            <input
+                                type="color"
+                                id="icon-color-picker"
+                                class="glass rounded shadow-lg block"
+                                v-model="formData.icons_color"
+                                :class="formData.errors && formData.errors.icons_color ? '!input-error !shadow-lg !shadow-error-content' : ''"
+                                required
+                            />
+                        </div>
+                    </div>
+
                 </div>
+
             </div>
 
             <!-- Submit Button -->
             <button type="submit" class="btn btn-primary w-full my-4"
                     :class="formData.processing ? 'btn-loading' : ''">
-                Register
+                Create Theme
             </button>
         </form>
 
         <div class="mockup-phone">
             <div class="camera"></div>
             <div class="display">
-                <div class="artboard phone-2">
+                <div class="artboard relative" style="width: 320px; height: 568px;">
                     <Room />
                 </div>
             </div>
@@ -174,7 +217,10 @@ const formData = useForm({
     name: '',
     price: '',
     background: '',
-    thumbnail: ''
+    thumbnail: '',
+    color: '',
+    text_color: '',
+    icons_color: ''
 });
 const handleBackgroundUpload = (event) => {
     console.log('background')
