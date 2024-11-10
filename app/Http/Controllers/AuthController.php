@@ -16,9 +16,9 @@ class AuthController extends Controller
     {
         return Inertia::render('Register');
     }
+
     public function register(StoreUserRequest $request)
     {
-
         $user = User::create($request->except('avatar'));
 
         $destinationPath = 'storage/users/'.$user->id.'-'.$user->name.'/';
@@ -30,6 +30,7 @@ class AuthController extends Controller
         $request->avatar->move($destinationPath, $fileName);
 
         $user->avatar = asset('/') . $destinationPath . '/' . $fileName;
+
         $user->save();
 
         Auth::login($user);

@@ -13,15 +13,17 @@ return new class extends Migration
     {
         Schema::create('frames', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('user_id');
-            $table->foreignId('theme_id');
+            $table->foreignId('user_id')->nullable();
+            $table->foreignId('theme_id')->nullable();
 
             $table->string('name')->nullable()->unique();
             $table->bigInteger('price')->nullable();
-            $table->longText('description')->nullable();
             $table->text('category')->nullable();
             $table->text('status')->nullable();
-            $table->string('src')->nullable();
+
+            $table->string('src_static')->nullable();
+            $table->string('src_animated')->nullable();
+
             $table->text('bdr_box')->nullable();
             $table->text('size')->nullable();
             $table->timestamps();

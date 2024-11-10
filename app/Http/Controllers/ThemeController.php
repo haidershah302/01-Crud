@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Frame;
 use App\Models\Theme;
 use App\Http\Requests\StoreThemeRequest;
 use App\Http\Requests\UpdateThemeRequest;
@@ -22,7 +23,7 @@ class ThemeController extends Controller
      */
     public function create()
     {
-        return Inertia::render('Admin/Room/Theme/create');
+        return Inertia::render('Admin/Room/Theme/create', ['frames' => Frame::all()]);
     }
 
     /**

@@ -2,9 +2,10 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\frame;
-use App\Http\Requests\StoreframeRequest;
-use App\Http\Requests\UpdateframeRequest;
+use App\Http\Requests\StoreFrameRequest;
+use App\Http\Requests\UpdateFrameRequest;
+use App\Models\Frame;
+use Inertia\Inertia;
 
 class FrameController extends Controller
 {
@@ -13,7 +14,7 @@ class FrameController extends Controller
      */
     public function index()
     {
-        //
+        return Inertia::render('Admin/Frames/index', ['frames' => Frame::all()]);
     }
 
     /**
@@ -21,15 +22,36 @@ class FrameController extends Controller
      */
     public function create()
     {
-        //
+        return Inertia::render('Admin/Frames/create');
     }
 
     /**
      * Store a newly created resource in storage.
      */
-    public function store(StoreframeRequest $request)
+    public function store(StoreFrameRequest $request)
     {
-        //
+        $frame = Frame::create($request->except('src_animated', 'src_static'));
+
+        $destinationPath = 'storage/app_assets/'.$frame->id.'-'.$frame->name.'/';
+
+        $fileRealNameSrcStatic = $request->src_static->getClientOriginalName();
+
+        $fileRealNameSrcAnimated = $request->src_animated->getClientOriginalName();
+
+        $fileNameSrcStatic = $frame->id. '-' . time() . '-' . $fileRealNameSrcStatic;
+
+        $fileNameSrcAnimated = $frame->id. '-' . time() . '-' . $fileRealNameSrcAnimated;
+
+        $request->src_static->move($destinationPath, $fileNameSrcStatic);
+
+        $request->src_animated->move($destinationPath, $fileNameSrcAnimated);
+
+        $frame->src_static = asset('/') . $destinationPath . '/' . $fileNameSrcStatic;
+        $frame->src_animated = asset('/') . $destinationPath . '/' . $fileNameSrcAnimated;
+
+        $frame->save();
+
+        return redirect()->route('admin.frame.index');
     }
 
     /**
@@ -51,7 +73,7 @@ class FrameController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(UpdateframeRequest $request, frame $frame)
+    public function update(UpdateFrameRequest $request, frame $frame)
     {
         //
     }

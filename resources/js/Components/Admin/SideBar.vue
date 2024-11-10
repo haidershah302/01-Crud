@@ -12,18 +12,21 @@
                     <h1>Fly-live</h1>
                 </Link>
             </li>
-            <ul class="menu gap-5 mt-8">
-                <li v-for="menu in menuItems" class="glass rounded-xl">
-                    <details>
+            <ul class="menu gap-4 mt-8">
+                <li v-for="menu in menuItems" class="glass rounded-md">
+                    <details v-if="menu.child !== undefined">
                         <summary class="font-mono">{{ menu.title }}</summary>
                         <ul>
                             <li v-for="child in menu.child">
-                                <Link :href="child.href" class="menu-item">
+                                <Link :href="child.href">
                                     {{ child.title }}
                                 </Link>
                             </li>
                         </ul>
                     </details>
+                    <Link v-else :href="menu.href" class="font-mono">
+                        {{ menu.title }}
+                    </Link>
                 </li>
             </ul>
         </ul>
@@ -80,6 +83,10 @@ const menuItems = [
                 href: route('admin.room.theme.index'),
             },
         ]
+    },
+    {
+        title: 'All Frames',
+        href: route('admin.frame.index'),
     },
     {
         title: 'Gifts',

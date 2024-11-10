@@ -183,6 +183,56 @@
 
             </div>
 
+            <table class="table">
+                <!-- head -->
+                <thead>
+                <tr>
+                    <th>
+                        <label>
+                            <input type="checkbox" class="checkbox" />
+                        </label>
+                    </th>
+                    <th>Frame</th>
+                    <th>Name</th>
+                    <th>Price</th>
+                    <th>Category</th>
+                    <th>Status</th>
+                    <th>Created At</th>
+                    <th>Updated At</th>
+                    <th></th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr v-for="frame in frames">
+                    <th>
+                        <label>
+                            <input type="checkbox" class="checkbox" />
+                        </label>
+                    </th>
+
+                    <td>
+                        <Avatar
+                            :frameSrc="frame.src_static"
+                            :profileSrc="$page.props.auth.user.avatar"
+                            :frameBorder="15"
+                            :frameSize="60"
+                            url="/"
+                        />
+                    </td>
+                    <td>{{ frame.name }}</td>
+                    <td>{{ frame.price }}</td>
+                    <td>{{ frame.category }}</td>
+                    <td>{{ frame.status }}</td>
+                    <td>{{ toDate(frame.created_at) }}</td>
+                    <td>{{ toDate(frame.updated_at) }}</td>
+
+                    <th>
+                        <Link href="/" class="btn btn-primary btn-xs">details</Link>
+                    </th>
+                </tr>
+                </tbody>
+            </table>
+
             <!-- Submit Button -->
             <button type="submit" class="btn btn-primary w-full my-4"
                     :class="formData.processing ? 'btn-loading' : ''">
@@ -205,6 +255,8 @@ import Admin from "@/Layouts/Admin.vue";
 import Room from "@/Pages/Room/myRoom.vue";
 import {useForm} from "@inertiajs/vue3";
 import {ref} from "vue";
+import Avatar from "@/Components/Avatar.vue";
+import {toDate} from "../../../../Composables/formateDateOrTime.js";
 
 defineOptions({
     layout: Admin
@@ -222,6 +274,10 @@ const formData = useForm({
     text_color: '',
     icons_color: ''
 });
+
+defineProps({
+    frames: Object
+});
 const handleBackgroundUpload = (event) => {
     console.log('background')
     if (event.target.files[0])
@@ -231,7 +287,6 @@ const handleBackgroundUpload = (event) => {
     }
 };
 const handleThumbnailUpload = (event) => {
-    console.log('here')
     if (event.target.files[0])
     {
         thumbnail_preview = URL.createObjectURL(event.target.files[0]);

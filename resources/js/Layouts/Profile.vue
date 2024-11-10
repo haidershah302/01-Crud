@@ -30,8 +30,8 @@
                 <Avatar
                     :frameSrc="$page.props.assets + '/site_assets/frames/3.png'"
                     :profileSrc="user.avatar"
-                    :frameBorder="25"
-                    :frameSize="110"
+                    :frameBorder="15"
+                    :frameSize="80"
                     url="/"
                     class="w-28 drop-shadow-xl"
                 />
