@@ -11,7 +11,7 @@ class StoreThemeRequest extends FormRequest
      */
     public function authorize(): bool
     {
-        return false;
+        return true;
     }
 
     /**
@@ -22,7 +22,14 @@ class StoreThemeRequest extends FormRequest
     public function rules(): array
     {
         return [
-            //
+            'name' => ['required', 'string', 'max:255'],
+            'price' => ['required', 'numeric'],
+            'color' => ['required', 'string', 'max:255'],
+            'text_color' => ['required', 'string', 'max:255'],
+            'icons_color' => ['required', 'string', 'max:255'],
+            'background' => ['required', 'image', 'mimes:jpeg,jpg,png,svg,webp,gif', 'max:5000'],
+            'thumbnail' => ['required', 'image', 'mimes:jpeg,jpg,png,svg,webp,gif', 'max:3000'],
+            'frame' => ['required', 'numeric'],
         ];
     }
 }

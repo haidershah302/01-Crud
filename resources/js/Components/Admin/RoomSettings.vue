@@ -1,7 +1,7 @@
 
 <template>
     <div>
-        <div class="room" :style="`background-image: url('${user.room.theme.background_image}');`">
+        <div class="room" :style="`background-image: url('${background}');`">
             <div>
                 <div class="flex gap-2 px-2 mt-6">
 
@@ -9,9 +9,9 @@
 
                         <Avatar
                             :frameSrc="user.frame.src"
-                            :profileSrc="$page.props.auth.user.avatar"
-                            :frameBorder="12"
-                            :frameSize="50"
+                            :profileSrc="user.profile_picture"
+                            :frameBorder="user.frame.bdr_box"
+                            :frameSize="user.frame.size"
                             url="/profile/view"
                         />
 
@@ -62,10 +62,10 @@
 
                     <div v-for="n in user.room.allowed_seats" class="flex-col-middle text-[--theme-text-color]" style="height: 82px;">
                         <Avatar
-                            :frameSrc="user.room.theme.frame.src"
+                            :frameSrc="themeFrame.src_animated"
                             :profileSrc="user.room.theme.profile_picture"
-                            :frameBorder="13"
-                            :frameSize="50"
+                            :frameBorder="themeFrame.bdr_box"
+                            :frameSize="themeFrame.size"
                             url="/profile/view"
                             class="mx-auto"
                         />
@@ -177,6 +177,8 @@
     color: var(--theme-text-color);
     margin-right: auto;
     display: flex;
+    align-items: center;
+    padding: 0 .2rem 0 .2rem;
     svg {
         height: 100%;
         width: 2rem;
@@ -267,17 +269,27 @@
 import {usePage} from "@inertiajs/vue3";
 import ChatBox from "@/Components/Room/chatBox.vue";
 import Avatar from "@/Components/Avatar.vue";
+import {ref, watch} from "vue";
 
 const assetDir = usePage().props.assets;
+
+const props = defineProps({
+    theme: Object,
+    background: {
+        type: String,
+        default: 'http://localhost:8000/storage/site_assets/backgrounds/3.jpg'
+    },
+    frames: Object
+});
 
 const user = {
     id: 1,
     name: usePage().props.auth.user.name,
-    profile_picture: "https://img.daisyui.com/images/stock/photo-1534528741775-53994a69daeb.webp",
+    profile_picture: usePage().props.auth.user.avatar,
     frame: {
-        src: assetDir + '/site_assets/frames/3.png',
+        src: assetDir + '/site_assets/frames/0.png',
         bdr_box: 5,
-        size: '60px',
+        size: 40,
     },
     room: {
         id: '100100' + usePage().props.auth.user.id,
@@ -286,18 +298,23 @@ const user = {
         active_users: 3211,
         allowed_seats: 15,
         theme: {
-            background_image: assetDir + '/site_assets/backgrounds/3.jpg',
-            frame: {
-                src: assetDir + '/site_assets/frames/3.png',
-                bdr_box: 15,
-                size: 80,
-            },
             profile_picture: assetDir + '/site_assets/Room/seat.png',
-            color: '#a06af3',
-            textColor: '#ffffff',
-            iconColor: '#ffffff',
+            color: props.theme.color,
+            textColor: props.theme.text_color,
+            iconColor: props.theme.icons_color,
+            frame: {
+                src_static: assetDir + '/site_assets/frames/0.png',
+                src_animated: assetDir + '/site_assets/frames/0.png',
+                bdr_box: 5,
+                size: 40,
+            },
         }
     },
 };
 
+let themeFrame = ref({});
+
+watch(props.theme, (newFrame) => {
+    themeFrame = props.frames.find(obj => obj.id === newFrame.frame);
+})
 </script>

@@ -72,6 +72,8 @@ Route::middleware('auth')->group(function () {
         Route::get('/admin/room/theme', 'index')->name('admin.room.theme.index');
 
         Route::get('/admin/room/theme/create', 'create')->name('admin.room.theme.create');
+
+        Route::post('/admin/room/theme/store', 'store')->name('admin.room.theme.store');
     });
 
     //FrameController

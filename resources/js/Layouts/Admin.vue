@@ -1,8 +1,7 @@
 <template>
-    <div class="drawer lg:drawer-open">
+    <div class="drawer">
         <input id="sidebar" type="checkbox" class="drawer-toggle" />
         <div class="drawer-content">
-            <!-- Page content here -->
             <Header />
 
             <slot></slot>

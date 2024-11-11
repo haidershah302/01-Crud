@@ -7,6 +7,8 @@
 
 .room_seat {
     border-radius: 100%;
+    border-style: solid;
+    border-color: transparent;
     width: 100%;
     height: 100%;
 }
@@ -19,30 +21,36 @@
 </style>
 <template>
     <div class="relative" :style="`width: ${frameSize}px;height: ${frameSize}px;`">
-        <Link :href="url" class="room-avatar absolute_center rounded-full"
-              :style="`width: ${frameSize}px;height: ${frameSize}px;`"
-        >
+        <Link :href="url" class="room-avatar absolute_center"
+              style="width: 100%;height: 100%;">
             <img
-                :style="`width: ${frameSize}px;`"
-                class="room_frame absolute_center"
-                :src="frameSrc" alt=""
+                :style="`padding: ${frameBorder}%`"
+                class="room_seat absolute_center"
+                :src="profileSrc" alt=""
             >
             <img
-                :style="`border: ${frameBorder}px solid transparent;`"
-                class="room_seat"
-                :src="profileSrc"
-                alt=""
+                style="width: 100%"
+                class="room_frame absolute_center"
+                :src="frameSrc" alt=""
             >
         </Link>
     </div>
 </template>
 
 <script setup>
-defineProps({
+import {watch} from "vue";
+
+const props = defineProps({
     frameSrc: String,
     profileSrc: String,
     frameSize: Number,
     frameBorder: Number,
     url: String,
 })
+
+watch(props, (newProps) => {
+    console.log(newProps.frameBorder)
+})
+
+
 </script>

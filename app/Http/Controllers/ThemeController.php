@@ -6,6 +6,7 @@ use App\Models\Frame;
 use App\Models\Theme;
 use App\Http\Requests\StoreThemeRequest;
 use App\Http\Requests\UpdateThemeRequest;
+use Illuminate\Http\Request;
 use Inertia\Inertia;
 
 class ThemeController extends Controller
@@ -31,7 +32,7 @@ class ThemeController extends Controller
      */
     public function store(StoreThemeRequest $request)
     {
-        //
+        dd($request->all());
     }
 
     /**

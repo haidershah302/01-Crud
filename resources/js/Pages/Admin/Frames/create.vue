@@ -20,7 +20,6 @@
     @apply w-full h-full;
 }
 
-
 .plain-text-input > label {
     @apply text-sm font-medium;
 }
@@ -47,10 +46,12 @@
                 </p>
                 <label for="src_static_upload"
                        :class="formData.errors && formData.errors.src_static ? '!border-error !shadow-lg !shadow-error-content' : ''">
-                    <img
-                        v-if="formData.src_static !== ''"
-                        :src="src_static_preview"
-                        alt="Avatar Preview"
+                    <Avatar v-if="formData.src_static !== ''"
+                        :frameSrc="src_static_preview"
+                        :profileSrc="usePage().props.auth.user.avatar"
+                        :frameBorder="formData.bdr_box"
+                        :frameSize="150"
+                        class="mx-auto"
                     />
                     <svg
                         v-else xmlns="http://www.w3.org/2000/svg" fill="none"
@@ -82,10 +83,12 @@
                 </p>
                 <label for="src_animated_upload"
                        :class="formData.errors && formData.errors.src_animated ? '!border-error !shadow-lg !shadow-error-content' : ''">
-                    <img
-                        v-if="formData.src_animated !== ''"
-                        :src="src_animated_preview"
-                        alt="Avatar Preview"
+                    <Avatar v-if="formData.src_animated !== ''"
+                            :frameSrc="src_animated_preview"
+                            :profileSrc="usePage().props.auth.user.avatar"
+                            :frameBorder="formData.bdr_box"
+                            :frameSize="150"
+                            class="mx-auto"
                     />
                     <svg
                         v-else xmlns="http://www.w3.org/2000/svg" fill="none"
@@ -186,8 +189,9 @@
 </template>
 <script setup>
 import Admin from "@/Layouts/Admin.vue";
-import {useForm} from "@inertiajs/vue3";
+import {useForm, usePage} from "@inertiajs/vue3";
 import {ref} from "vue";
+import Avatar from "@/Components/Avatar.vue";
 
 defineOptions({
     layout: Admin
@@ -202,7 +206,7 @@ const formData = useForm({
     src_static: '',
     src_animated: '',
     category: '',
-    bdr_box: '',
+    bdr_box: null,
     size: ''
 });
 const handleSrcStaticUpload = (event) => {
