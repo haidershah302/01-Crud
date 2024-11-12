@@ -22,7 +22,7 @@ class StoreThemeRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'name' => ['required', 'string', 'max:255'],
+            'name' => ['required', 'string', 'max:255', 'unique:themes'],
             'price' => ['required', 'numeric'],
             'color' => ['required', 'string', 'max:255'],
             'text_color' => ['required', 'string', 'max:255'],

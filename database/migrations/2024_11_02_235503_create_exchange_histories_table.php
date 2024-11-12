@@ -12,6 +12,7 @@ return new class extends Migration
     public function up(): void
     {
         Schema::create('exchange_histories', function (Blueprint $table) {
+
             $table->id();
             $table->foreignId('user_id')->constrained()->cascadeOnDelete();
             $table->bigInteger('amount');
@@ -20,6 +21,7 @@ return new class extends Migration
             $table->bigInteger('diamonds_before');
             $table->bigInteger('diamonds_after');
             $table->timestamps();
+
         });
     }
 

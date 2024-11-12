@@ -7,6 +7,8 @@ use Illuminate\Database\Eloquent\Model;
 class Frame extends Model
 {
     protected $fillable = [
+        'user_id',
+        'theme_id',
         'name',
         'price',
         'description',

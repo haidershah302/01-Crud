@@ -24,6 +24,11 @@ class Theme extends Model
 
     public function room()
     {
-        $this->belongsTo(Room::class);
+        return $this->belongsTo(Room::class);
+    }
+
+    public function frame()
+    {
+        return $this->hasOne(Frame::class);
     }
 }

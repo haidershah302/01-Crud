@@ -32,7 +32,11 @@ class ThemeController extends Controller
      */
     public function store(StoreThemeRequest $request)
     {
-        dd($request->all());
+        $theme = Theme::create($request->except('frame', 'background', 'thumbnail'));
+
+        $frame = Frame::find($request->frame)->update(['theme_id' => $theme->id]);
+
+        dd($theme->frame, $frame);
     }
 
     /**
