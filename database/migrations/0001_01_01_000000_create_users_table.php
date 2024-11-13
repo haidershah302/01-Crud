@@ -13,23 +13,21 @@ return new class extends Migration
     {
         Schema::create('users', function (Blueprint $table) {
             $table->id();
-            $table->string('google_id')->unique()->nullable();
 
-            $table->string('phone')->unique()->nullable();
-            $table->string('name')->nullable();
+            $table->string('google_id')->nullable()->unique();
+            $table->string('facebook_id')->nullable()->unique();
+            $table->string('phone')->nullable()->unique();
+            $table->string('name', 255)->nullable();
             $table->string('signature')->nullable();
-            $table->string('gender')->nullable();
+            $table->enum('gender', ['male', 'female', 'other'])->nullable();
             $table->string('country')->nullable();
             $table->date('dob')->nullable();
-            $table->string('email')->unique()->nullable();
-            $table->string('avatar')->nullable();
+            $table->string('role')->default('general');
+            $table->string('avatar')->default('https://i.pravatar.cc/300')->nullable();
+            $table->bigInteger('coins')->default(0)->nullable();
+            $table->bigInteger('diamonds')->default(0)->nullable();
+            $table->string('email', 255)->nullable()->unique();
 
-            $table->bigInteger('coins')->nullable()->default(0);
-            $table->bigInteger('diamonds')->nullable()->default(0);
-
-            $table->string('role')->nullable()->default('general');
-
-            $table->string('password');
             $table->rememberToken();
             $table->timestamps();
         });

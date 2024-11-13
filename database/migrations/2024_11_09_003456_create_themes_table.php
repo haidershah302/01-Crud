@@ -13,16 +13,26 @@ return new class extends Migration
     {
         Schema::create('themes', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('user_id')->nullable();
-            $table->foreignId('room_id')->nullable();
 
-            $table->integer('price')->nullable()->default(0);
+            $table->string('profile')->nullable();
+            $table->bigInteger('price')->nullable();
             $table->string('name')->nullable()->unique();
-            $table->string('background')->nullable();
-            $table->string('thumbnail')->nullable();
-            $table->string('color')->nullable();
-            $table->string('text_color')->nullable();
-            $table->string('icons_color')->nullable();
+            $table->string('color', 9)->nullable();
+            $table->string('text_color', 9)->nullable();
+            $table->string('icons_color', 9)->nullable();
+            $table->string('background')->default('https://i.pravatar.cc/300')->nullable();
+            $table->string('thumbnail')->default('https://i.pravatar.cc/300')->nullable();
+            $table->string('seat_ring')->nullable();
+            $table->string('seat')->nullable();
+            $table->integer('bdr_box')->nullable();
+            $table->string('status')->nullable();
+
+            $table->bigInteger('room_id')->unsigned()->nullable();
+            $table->foreign('room_id')
+                ->references('id')
+                ->on('Room')
+                ->onDelete('cascade')
+                ->onUpdate('cascade');
 
             $table->timestamps();
         });

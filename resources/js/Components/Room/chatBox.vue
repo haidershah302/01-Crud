@@ -20,7 +20,7 @@
                 {{ $page.props.auth.user.name }}
                 <time class="text-xs opacity-50">12:45</time>
             </div>
-            <div class="chat-bubble text-sm p-2 bg-[--theme-color] shadow-lg">
+            <div class="chat-bubble text-sm p-2 bg-transparent shadow-lg">
                 You were the Chosen One!
             </div>
         </div>

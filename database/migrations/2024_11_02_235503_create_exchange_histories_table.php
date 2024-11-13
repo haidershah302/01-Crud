@@ -14,13 +14,19 @@ return new class extends Migration
         Schema::create('exchange_histories', function (Blueprint $table) {
 
             $table->id();
-            $table->foreignId('user_id')->constrained()->cascadeOnDelete();
             $table->bigInteger('amount');
             $table->bigInteger('coins_before');
             $table->bigInteger('coins_after');
             $table->bigInteger('diamonds_before');
             $table->bigInteger('diamonds_after');
             $table->timestamps();
+
+            $table->bigInteger('user_id')->unsigned();
+            $table
+                ->foreign('user_id')
+                ->references('id')
+                ->on('users')
+                ->onDelete('cascade');
 
         });
     }

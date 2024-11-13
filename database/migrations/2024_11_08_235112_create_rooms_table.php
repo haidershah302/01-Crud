@@ -14,22 +14,26 @@ return new class extends Migration
         Schema::create('rooms', function (Blueprint $table) {
             $table->id();
             $table->uuid('uid')->unique()->nullable();
-            $table->foreignId('user_id')->constrained('users');
 
             $table->string('name')->nullable()->unique();
-            $table->integer('seat_quantity')->nullable()->default(15);
-            $table->string('image')->nullable();
+            $table->integer('seat_quantity')->default(15);
+            $table->string('image')->default('https://i.pravatar.cc/300')->nullable();
             $table->string('announcement')->nullable();
             $table->string('greetings')->nullable();
             $table->string('status')->default('Active')->nullable();
-
-            $table->boolean('seat_apply_mode')->nullable()->default(False);
-            $table->boolean('tourists_on_mic')->nullable()->default(False);
-            $table->boolean('tourists_send_text')->nullable()->default(False);
-            $table->boolean('tourists_send_files')->nullable()->default(False);
-            $table->boolean('hidden_room')->nullable()->default(False);
+            $table->boolean('seat_apply_mode')->default(false)->nullable();
+            $table->boolean('tourists_on_mic')->default(false)->nullable();
+            $table->boolean('tourists_send_text')->default(false)->nullable();
+            $table->boolean('tourists_send_files')->default(false)->nullable();
+            $table->boolean('hidden_room')->default(false)->nullable();
 
             $table->timestamps();
+
+            $table->bigInteger('user_id')->unsigned();
+            $table->foreign('user_id')
+                ->references('id')
+                ->on('users')
+                ->onDelete('cascade');
         });
     }
 

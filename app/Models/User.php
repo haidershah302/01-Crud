@@ -18,18 +18,18 @@ class User extends Authenticatable
      */
     protected $fillable = [
         'google_id',
+        'facebook_id',
         'name',
         'phone',
+        'signature',
         'gender',
         'country',
         'dob',
+        'role',
         'avatar',
-        'email',
-        'signature',
-
         'coins',
         'diamonds',
-
+        'email',
         'password',
     ];
 
@@ -41,7 +41,12 @@ class User extends Authenticatable
     protected $hidden = [
         'password',
         'remember_token',
+        'google_id',
+        'facebook_id',
     ];
+
+
+    protected array $dates = ['dob'];
 
     /**
      * Get the attributes that should be cast.
@@ -51,6 +56,7 @@ class User extends Authenticatable
     protected function casts(): array
     {
         return [
+            'email_verified_at' => 'datetime',
             'password' => 'hashed',
         ];
     }
