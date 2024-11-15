@@ -23,6 +23,7 @@
                         <th>Created At</th>
                         <th>Updated At</th>
                         <th></th>
+                        <th></th>
                     </tr>
                     </thead>
                     <tbody>
@@ -50,13 +51,20 @@
                         <td>{{ toDate(frame.updated_at) }}</td>
 
                         <th>
-                            <Link href="/" class="btn btn-primary btn-xs">details</Link>
+                            <Link :href="route('admin.frame.edit', frame.id)" class="btn btn-secondary btn-xs">Edit</Link>
+                        </th>
+
+                        <th>
+                            <Link :href="route('admin.frame.destroy', frame.id)" method="delete" as="button" type="button" class="btn btn-primary btn-xs">Delete</Link>
                         </th>
                     </tr>
                     </tbody>
                 </table>
             </div>
 
+            <div v-if="flash.messages" class="alert alert-success shadow-xl shadow-success/40 absolute z-10 top-16 right-16 max-w-3xl">
+                <span>{{ flash.messages.success }}</span>
+            </div>
         </div>
     </div>
 </template>
@@ -64,6 +72,11 @@
 import Admin from "@/Layouts/Admin.vue";
 import {toDate} from "@/Composables/formateDateOrTime.js";
 import Avatar from "@/Components/Avatar.vue";
+import {usePage} from "@inertiajs/vue3";
+
+const flash = usePage().props.flash;
+
+console.log(flash);
 
 defineOptions({
     layout: Admin
@@ -72,4 +85,8 @@ defineOptions({
 defineProps({
     frames: Object
 })
+
+setTimeout(() => {
+    flash.messages = null;
+}, 3000);
 </script>

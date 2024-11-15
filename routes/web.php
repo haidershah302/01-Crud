@@ -84,10 +84,18 @@ Route::middleware('auth')->group(function () {
 
     //FrameController
     Route::controller(FrameController::class)->group(function () {
+
         Route::get('/admin/frame', 'index')->name('admin.frame.index');
 
         Route::get('/admin/frame/create', 'create')->name('admin.frame.create');
 
         Route::post('/admin/frame/store', 'store')->name('admin.frame.store');
+
+        Route::get('/admin/frame/{frame}', 'edit')->name('admin.frame.edit');
+
+        Route::post('/admin/frame/{frame}', 'update')->name('admin.frame.update');
+
+        route::delete('/admin/frame/{frame}', 'destroy')->name('admin.frame.destroy');
+
     });
 });

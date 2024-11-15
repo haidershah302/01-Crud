@@ -11,7 +11,7 @@ class UpdateFrameRequest extends FormRequest
      */
     public function authorize(): bool
     {
-        return false;
+        return true;
     }
 
     /**
@@ -22,7 +22,11 @@ class UpdateFrameRequest extends FormRequest
     public function rules(): array
     {
         return [
-            //
+            'name' => ['nullable', 'string', 'max:255', 'unique:frames,name,' . $this->route('frame')->id],
+            'price' => ['nullable', 'numeric'],
+            'src_static' => ['nullable', 'image', 'mimes:jpeg,jpg,png,svg,webp', 'max:3000'],
+            'src_animated' => ['nullable', 'file', 'mimes:jpeg,jpg,png,svg,webp,mp4,wave,gif', 'max:5000'],
+            'bdr_box' => ['nullable', 'numeric'],
         ];
     }
 }

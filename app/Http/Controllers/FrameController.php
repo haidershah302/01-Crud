@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Http\Requests\StoreFrameRequest;
 use App\Http\Requests\UpdateFrameRequest;
 use App\Models\Frame;
+use Illuminate\Support\Str;
 use Inertia\Inertia;
 
 class FrameController extends Controller
@@ -32,32 +33,31 @@ class FrameController extends Controller
     {
         $frame = Frame::create($request->except('src_animated', 'src_static'));
 
-        $destinationPath = 'storage/app_assets/'.$frame->id.'-'.$frame->name.'/';
-
-        $fileRealNameSrcStatic = $request->src_static->getClientOriginalName();
-
-        $fileRealNameSrcAnimated = $request->src_animated->getClientOriginalName();
-
-        $fileNameSrcStatic = $frame->id. '-' . time() . '-' . $fileRealNameSrcStatic;
-
-        $fileNameSrcAnimated = $frame->id. '-' . time() . '-' . $fileRealNameSrcAnimated;
-
-        $request->src_static->move($destinationPath, $fileNameSrcStatic);
-
-        $request->src_animated->move($destinationPath, $fileNameSrcAnimated);
-
-        $frame->src_static = asset('/') . $destinationPath . '/' . $fileNameSrcStatic;
-        $frame->src_animated = asset('/') . $destinationPath . '/' . $fileNameSrcAnimated;
+        $fields = ['src_static', 'src_animated'];
+        foreach ($fields as $field) {
+            $frame->$field = $this->handleFileUpload($frame->id, $frame->name, $request->$field, 'frames', $field);
+        }
 
         $frame->save();
 
-        return redirect()->route('admin.frame.index');
+        return redirect()->route('admin.frame.index')->with('message', ['success' => 'Frame created successfully.']);
+    }
+
+    private function handleFileUpload($table_id, $table_name, $item, $folder, $type)
+    {
+        $destinationPath = 'storage/app_assets/' . $folder . '/' .$table_id. '-' . Str::kebab($table_name) .'/';
+
+        $fileName = $type. '-' . $table_id. '-' . time() . '-' . Str::uuid() . '-' . $item->getClientOriginalName();
+
+        $item->move($destinationPath, $fileName);
+
+        return asset('/') . $destinationPath . $fileName;
     }
 
     /**
      * Display the specified resource.
      */
-    public function show(frame $frame)
+    public function show(Frame $frame)
     {
         //
     }
@@ -65,24 +65,37 @@ class FrameController extends Controller
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit(frame $frame)
+    public function edit(Frame $frame)
     {
-        //
+        return Inertia::render('Admin/Frames/update', ['frame' => $frame]);
     }
 
     /**
      * Update the specified resource in storage.
      */
-    public function update(UpdateFrameRequest $request, frame $frame)
+    public function update(UpdateFrameRequest $request, Frame $frame)
     {
-        //
+        $data = $request->except('src_animated', 'src_static');
+
+        $fields = ['src_static', 'src_animated'];
+        foreach ($fields as $field) {
+            if ($request->$field != null) {
+                $data[$field] = $this->handleFileUpload($frame->id, $frame->name, $request->$field, 'frames', $field);
+            }
+        }
+
+        $frame->update($data);
+
+        return redirect()->route('admin.frame.index')->with('message', ['success' => 'Frame Updated successfully.']);
     }
 
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(frame $frame)
+    public function destroy(Frame $frame)
     {
-        //
+        $frame->delete();
+
+        return redirect()->route('admin.frame.index')->with('message', ['success' => 'Frame deleted successfully.']);
     }
 }

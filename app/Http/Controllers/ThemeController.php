@@ -34,10 +34,10 @@ class ThemeController extends Controller
     public function store(StoreThemeRequest $request)
     {
         $theme = Theme::create($request->except('background', 'thumbnail', 'seat','seat_ring'));
-        $theme->background = $this->handleFileUpload($theme->id, $theme->name, $request->background, 'themes', 'background');
-        $theme->thumbnail = $this->handleFileUpload($theme->id, $theme->name, $request->thumbnail, 'themes', 'thumbnail');
-        $theme->seat_ring = $this->handleFileUpload($theme->id, $theme->name, $request->seat_ring, 'themes', 'seat_ring');
-        $theme->seat = $this->handleFileUpload($theme->id, $theme->name, $request->seat, 'themes', 'seat');
+        $fields = ['background', 'thumbnail', 'seat_ring', 'seat'];
+        foreach ($fields as $field) {
+            $theme->$field = $this->handleFileUpload($theme->id, $theme->name, $request->$field, 'themes', $field);
+        }
 
         $theme->save();
 

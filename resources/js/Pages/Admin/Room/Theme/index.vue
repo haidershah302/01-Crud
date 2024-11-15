@@ -62,8 +62,6 @@ import {usePage} from "@inertiajs/vue3";
 
 const flash = usePage().props.flash;
 
-console.log(flash)
-
 defineOptions({
     layout: Admin
 })
