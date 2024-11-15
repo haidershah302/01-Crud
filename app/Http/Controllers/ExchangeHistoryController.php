@@ -52,7 +52,7 @@ class ExchangeHistoryController extends Controller
             return redirect()->route('profile.exchange');
         } else {
             return redirect()->back()
-                ->with('error', 'Not enough diamonds' + $authUser->diamonds + 'then coins ' + $request->diamonds);
+                ->with('error', 'Not enough diamonds' . $authUser->diamonds . ' then coins ' . $request->diamonds);
         }
     }
 

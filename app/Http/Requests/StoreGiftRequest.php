@@ -4,14 +4,14 @@ namespace App\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
 
-class StoreFrameRequest extends FormRequest
+class StoreGiftRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
      */
     public function authorize(): bool
     {
-        return true;
+        return false;
     }
 
     /**
@@ -22,11 +22,7 @@ class StoreFrameRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'name' => ['required', 'string', 'max:255', 'unique:frames'],
-            'price' => ['required', 'numeric'],
-            'src_static' => ['required', 'image', 'mimes:jpeg,jpg,png,svg,webp', 'max:3000'],
-            'src_animated' => ['required', 'file', 'mimes:jpeg,jpg,png,svg,webp,mp4,wave,gif', 'max:5000'],
-            'bdr_box' => ['required', 'numeric'],
+            //
         ];
     }
 }

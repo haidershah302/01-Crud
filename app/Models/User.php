@@ -16,22 +16,7 @@ class User extends Authenticatable
      *
      * @var array<int, string>
      */
-    protected $fillable = [
-        'google_id',
-        'facebook_id',
-        'name',
-        'phone',
-        'signature',
-        'gender',
-        'country',
-        'dob',
-        'role',
-        'avatar',
-        'coins',
-        'diamonds',
-        'email',
-        'password',
-    ];
+    protected $guarded = [];
 
     /**
      * The attributes that should be hidden for serialization.
@@ -45,7 +30,11 @@ class User extends Authenticatable
         'facebook_id',
     ];
 
-
+    /**
+     * The attributes that should be mutated to dates.
+     *
+     * @var array<int, string>
+     */
     protected array $dates = ['dob'];
 
     /**
@@ -61,32 +50,28 @@ class User extends Authenticatable
         ];
     }
 
-    protected static function boot()
-    {
-        parent::boot();
-        static::creating(function ($model) {
-            $model->coins = 0;
-            $model->diamonds = 10000;
-        });
-    }
-
     public function exchange_history(): \Illuminate\Database\Eloquent\Relations\HasMany
     {
         return $this->hasMany(ExchangeHistory::class);
     }
 
-    public function room()
+    public function room(): \Illuminate\Database\Eloquent\Relations\HasOne
     {
         return $this->hasOne(Room::class);
     }
 
-    public function themes()
+    public function themes(): \Illuminate\Database\Eloquent\Relations\HasMany
     {
         return $this->hasMany(Theme::class);
     }
 
-    public function frame()
+    public function frames(): \Illuminate\Database\Eloquent\Relations\HasMany
     {
-        return $this->hasOne(Frame::class);
+        return $this->hasMany(Frame::class);
+    }
+
+    public function gifts(): \Illuminate\Database\Eloquent\Relations\HasMany
+    {
+        return $this->hasMany(Gift::class);
     }
 }

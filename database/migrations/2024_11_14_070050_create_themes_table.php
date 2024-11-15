@@ -27,14 +27,19 @@ return new class extends Migration
             $table->integer('bdr_box')->nullable();
             $table->string('status')->nullable();
 
+            $table->timestamps();
+
             $table->bigInteger('room_id')->unsigned()->nullable();
             $table->foreign('room_id')
                 ->references('id')
-                ->on('Room')
+                ->on('rooms')
                 ->onDelete('cascade')
                 ->onUpdate('cascade');
 
-            $table->timestamps();
+            $table->bigInteger('user_id')->unsigned()->nullable();
+            $table->foreign('user_id')
+                ->references('id')
+                ->on('users');
         });
     }
 

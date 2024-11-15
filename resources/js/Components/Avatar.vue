@@ -21,14 +21,31 @@
 </style>
 <template>
     <div class="relative" :style="`width: ${frameSize}px;height: ${frameSize}px;`">
-        <Link :href="url" class="room-avatar absolute_center"
+        <div v-if="url !== ''" class="room-avatar absolute_center"
               style="width: 100%;height: 100%;">
             <img
+                v-show="profileSrc !== ''"
                 :style="`padding: ${frameBorder}%`"
                 class="room_seat absolute_center"
                 :src="profileSrc" alt=""
             >
             <img
+                v-show="frameSrc !== ''"
+                style="width: 100%"
+                class="room_frame absolute_center"
+                :src="frameSrc" alt=""
+            >
+        </div>
+        <Link v-else :href="url" class="room-avatar absolute_center"
+              style="width: 100%;height: 100%;">
+            <img
+                v-show="profileSrc !== ''"
+                :style="`padding: ${frameBorder}%`"
+                class="room_seat absolute_center"
+                :src="profileSrc" alt=""
+            >
+            <img
+                v-show="frameSrc !== ''"
                 style="width: 100%"
                 class="room_frame absolute_center"
                 :src="frameSrc" alt=""
@@ -38,19 +55,26 @@
 </template>
 
 <script setup>
-import {watch} from "vue";
-
 const props = defineProps({
-    frameSrc: String,
-    profileSrc: String,
-    frameSize: Number,
-    frameBorder: Number,
-    url: String,
+    frameSrc: {
+        type: String,
+        default: '/storage/site_assets/frames/0.png'
+    },
+    profileSrc:  {
+        type: String,
+        default: '/storage/site_assets/profile/avatar_placeholder.png'
+    },
+    frameSize: {
+        type: Number,
+        default: 50
+    },
+    frameBorder: {
+        type: Number,
+        default: 6
+    },
+    url: {
+        type: String,
+        default: ''
+    },
 })
-
-watch(props, (newProps) => {
-    console.log(newProps.frameBorder)
-})
-
-
 </script>

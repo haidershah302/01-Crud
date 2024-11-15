@@ -7,6 +7,7 @@ use App\Models\Theme;
 use App\Http\Requests\StoreThemeRequest;
 use App\Http\Requests\UpdateThemeRequest;
 use Illuminate\Http\Request;
+use Illuminate\Support\Str;
 use Inertia\Inertia;
 
 class ThemeController extends Controller
@@ -32,11 +33,26 @@ class ThemeController extends Controller
      */
     public function store(StoreThemeRequest $request)
     {
-        $theme = Theme::create($request->except('frame', 'background', 'thumbnail'));
+        $theme = Theme::create($request->except('background', 'thumbnail', 'seat','seat_ring'));
+        $theme->background = $this->handleFileUpload($theme->id, $theme->name, $request->background, 'themes', 'background');
+        $theme->thumbnail = $this->handleFileUpload($theme->id, $theme->name, $request->thumbnail, 'themes', 'thumbnail');
+        $theme->seat_ring = $this->handleFileUpload($theme->id, $theme->name, $request->seat_ring, 'themes', 'seat_ring');
+        $theme->seat = $this->handleFileUpload($theme->id, $theme->name, $request->seat, 'themes', 'seat');
 
-        $frame = Frame::find($request->frame)->update(['theme_id' => $theme->id]);
+        $theme->save();
 
-        dd($theme->frame, $frame);
+        return redirect()->route('admin.room.theme.index')->with('message', ['success' => 'Theme created successfully.']);
+    }
+
+    private function handleFileUpload($table_id, $table_name, $item, $folder, $type)
+    {
+        $destinationPath = 'storage/app_assets/' .$folder. '/' .$table_id. '-' . Str::kebab($table_name) .'/';
+
+        $fileName = $type. '-' . $table_id. '-' . time() . '-' . Str::uuid() . '-' . $item->getClientOriginalName();
+
+        $item->move($destinationPath, $fileName);
+
+        return asset('/') . $destinationPath . $fileName;
     }
 
     /**
@@ -52,7 +68,7 @@ class ThemeController extends Controller
      */
     public function edit(Theme $theme)
     {
-        //
+        return Inertia::render('Admin/Room/Theme/update', ['theme' => $theme]);
     }
 
     /**
@@ -60,7 +76,17 @@ class ThemeController extends Controller
      */
     public function update(UpdateThemeRequest $request, Theme $theme)
     {
-        //
+        $data = $request->except('background', 'thumbnail', 'seat','seat_ring');
+        $fields = ['background', 'thumbnail', 'seat_ring', 'seat'];
+        foreach ($fields as $field) {
+            if ($request->$field != null) {
+                $data[$field] = $this->handleFileUpload($theme->id, $theme->name, $request->$field, 'themes', $field);
+            }
+        }
+
+        $theme->update($data);
+
+        return redirect()->route('admin.room.theme.index')->with('message', ['success' => 'Theme Updated successfully.']);
     }
 
     /**
@@ -68,6 +94,8 @@ class ThemeController extends Controller
      */
     public function destroy(Theme $theme)
     {
-        //
+        $theme->delete();
+
+        return redirect()->route('admin.room.theme.index')->with('message', ['success' => 'Theme Deleted successfully.']);
     }
 }

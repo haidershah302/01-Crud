@@ -6,17 +6,12 @@ use Illuminate\Database\Eloquent\Model;
 
 class ExchangeHistory extends Model
 {
-    protected $fillable = [
-        'user_id',
-        'amount',
-        'coins_before',
-        'coins_after',
-        'diamonds_before',
-        'diamonds_after',
-    ];
 
-    public function user()
+    protected $table = 'exchange_history';
+    protected $guarded = [];
+
+    public function user(): \Illuminate\Database\Eloquent\Relations\BelongsTo
     {
-        $this->belongsTo(User::class);
+        return $this->belongsTo(User::class);
     }
 }

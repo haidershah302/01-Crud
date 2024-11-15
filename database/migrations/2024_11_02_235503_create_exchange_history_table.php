@@ -11,7 +11,7 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('exchange_histories', function (Blueprint $table) {
+        Schema::create('exchange_history', function (Blueprint $table) {
 
             $table->id();
             $table->bigInteger('amount');
@@ -22,11 +22,9 @@ return new class extends Migration
             $table->timestamps();
 
             $table->bigInteger('user_id')->unsigned();
-            $table
-                ->foreign('user_id')
+            $table->foreign('user_id')
                 ->references('id')
-                ->on('users')
-                ->onDelete('cascade');
+                ->on('users');
 
         });
     }
@@ -36,6 +34,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('exchange_histories');
+        Schema::dropIfExists('exchange_history');
     }
 };

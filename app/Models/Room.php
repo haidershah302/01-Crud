@@ -8,14 +8,9 @@ use Psy\Output\Theme;
 
 class Room extends Model
 {
-    protected $fillable = [
-        'uid','user_id', 'name', 'seat_quantity',
-        'image', 'announcement', 'greetings', 'status',
-        'seat_apply_mode', 'tourists_on_mic',
-        'tourists_send_text', 'tourists_send_files', 'hidden_room'
-    ];
+    protected $guarded = [];
 
-    public static function boot()
+    public static function boot(): void
     {
         parent::boot();
         self::creating(function ($model) {
@@ -23,7 +18,7 @@ class Room extends Model
         });
     }
 
-    public function user()
+    public function user(): \Illuminate\Database\Eloquent\Relations\BelongsTo
     {
         return $this->belongsTo(User::class);
     }

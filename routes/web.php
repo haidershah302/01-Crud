@@ -74,6 +74,12 @@ Route::middleware('auth')->group(function () {
         Route::get('/admin/room/theme/create', 'create')->name('admin.room.theme.create');
 
         Route::post('/admin/room/theme/store', 'store')->name('admin.room.theme.store');
+
+        Route::get('/admin/room/theme/{theme}', 'edit')->name('admin.room.theme.edit');
+
+        Route::post('/admin/room/theme/{theme}', 'update')->name('admin.room.theme.update');
+
+        Route::delete('/admin/room/theme/{theme}', 'destroy')->name('admin.room.theme.destroy');
     });
 
     //FrameController

@@ -19,3 +19,7 @@ input::-webkit-inner-spin-button {
 .flex-col-middle {
     @apply flex flex-col justify-center;
 }
+
+body {
+    @apply bg-base-100 min-h-screen;
+}

@@ -24,12 +24,14 @@ class StoreThemeRequest extends FormRequest
         return [
             'name' => ['required', 'string', 'max:255', 'unique:themes'],
             'price' => ['required', 'numeric'],
+            'bdr_box' => ['required', 'numeric'],
             'color' => ['required', 'string', 'max:255'],
             'text_color' => ['required', 'string', 'max:255'],
             'icons_color' => ['required', 'string', 'max:255'],
             'background' => ['required', 'image', 'mimes:jpeg,jpg,png,svg,webp,gif', 'max:5000'],
             'thumbnail' => ['required', 'image', 'mimes:jpeg,jpg,png,svg,webp,gif', 'max:3000'],
-            'frame' => ['required', 'numeric'],
+            'seat_ring' => ['required', 'image', 'mimes:jpeg,jpg,png,svg,webp,gif', 'max:3000'],
+            'seat' => ['required', 'image', 'mimes:jpeg,jpg,png,svg,webp,gif', 'max:3000'],
         ];
     }
 }

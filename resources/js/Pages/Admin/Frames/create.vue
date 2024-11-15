@@ -114,20 +114,6 @@
             </div>
         </div>
 
-        <!-- Category Field -->
-        <div class="mb-4 select-input" :class="formData.errors && formData.errors.category ? '!input-error !shadow-lg !shadow-error-content' : ''">
-            <label for="category">Category</label>
-            <select id="category" v-model="formData.category" required>
-                <option value="" disabled>Select Category</option>
-                <option value="Normal">Normal</option>
-                <option value="Lucky">Lucky</option>
-                <option value="Cp Gift">Cp Gift</option>
-                <option value="Vip Gift">Vip Gift</option>
-                <option value="Country">Country</option>
-                <option value="Celebrity">Celebrity</option>
-                <option value="Bag">Bag</option>
-            </select>
-        </div>
         <!-- Name Field -->
         <div class="mb-4 plain-text-input">
             <label for="name">
@@ -167,19 +153,6 @@
                 required
             />
         </div>
-        <!-- Size Field -->
-        <div class="mb-4 plain-text-input">
-            <label for="size">
-                Size Box
-            </label>
-            <input
-                type="number"
-                id="size"
-                v-model="formData.size"
-                :class="formData.errors && formData.errors.size ? '!input-error !shadow-lg !shadow-error-content' : ''"
-                required
-            />
-        </div>
 
         <!-- Submit Button -->
         <button type="submit" class="btn btn-primary w-full my-4" :class="formData.processing ? 'btn-loading' : ''">
@@ -189,9 +162,9 @@
 </template>
 <script setup>
 import Admin from "@/Layouts/Admin.vue";
+import Avatar from "@/Components/Avatar.vue";
 import {useForm, usePage} from "@inertiajs/vue3";
 import {ref} from "vue";
-import Avatar from "@/Components/Avatar.vue";
 
 defineOptions({
     layout: Admin
@@ -205,9 +178,7 @@ const formData = useForm({
     price: '',
     src_static: '',
     src_animated: '',
-    category: '',
     bdr_box: null,
-    size: ''
 });
 const handleSrcStaticUpload = (event) => {
     if (event.target.files[0])
