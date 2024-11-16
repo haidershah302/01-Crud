@@ -5,6 +5,7 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Str;
 use Psy\Output\Theme;
+use Ramsey\Uuid\Uuid;
 
 class Room extends Model
 {
@@ -14,7 +15,7 @@ class Room extends Model
     {
         parent::boot();
         self::creating(function ($model) {
-            $model->uid = (string) Str::uuid();
+            $model->ulid = Str::ulid()->toRfc4122();
         });
     }
 
