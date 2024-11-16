@@ -9,7 +9,19 @@
 
         <banner-carousel class="relative z-10"/>
 
-        <HomeCarousel class="relative z-10" />
+        <div class="carousel carousel-center space-x-4 pb-4 pl-6">
+
+            <Link :href="route('admin.room.show', room.ulid)" v-for="room in rooms" class="carousel-item w-6/12 h-64 rounded-lg relative overflow-hidden"
+                 :style="`box-shadow: 0 2px 30px -15px ${room.themes[0].color}`">
+                <img :src="room.themes[0].thumbnail" :alt="room.name" />
+
+                <div class="absolute top-0 left-0 w-full z-0 text-xs p-4">Live Now</div>
+
+                <div class="absolute bottom-0 left-0 w-full z-0 text-xs p-4 flex items-center">
+                    {{room.name}} <span class="loading loading-bars loading-xs ml-2"></span>
+                </div>
+            </Link>
+        </div>
 
         <RoomGrid class=" relative z-10" />
 
@@ -17,12 +29,19 @@
 </template>
 <script setup>
 import BannerCarousel from "@/Components/bannerCarousel.vue";
-import HomeCarousel from "@/Components/homeCarousel.vue";
 import RoomGrid from "@/Components/roomGrid.vue";
 import Default from "@/Layouts/Default.vue";
 defineOptions({
     layout: Default
 })
+
+const props = defineProps({
+    rooms: {
+        type: Object,
+        required: true
+    }
+})
+
 </script>
 
 <style scoped>

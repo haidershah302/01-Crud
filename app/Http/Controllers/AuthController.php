@@ -16,26 +16,27 @@ class AuthController extends Controller
     {
         return Inertia::render('Register');
     }
-
     public function register(StoreUserRequest $request)
     {
         $user = User::create($request->except('avatar'));
 
-        $destinationPath = 'storage/users/'.$user->id.'-'.$user->name.'/';
-
-        $fileRealName = $request->avatar->getClientOriginalName();
-
-        $fileName = $user->id. '-' . time() . '-' . $fileRealName;
-
-        $request->avatar->move($destinationPath, $fileName);
-
-        $user->avatar = asset('/') . $destinationPath . '/' . $fileName;
+        $user->avatar = $this->handleFileUpload($user->id, $user->name, $request->avatar, 'users', 'avatar');
 
         $user->save();
 
         Auth::login($user);
 
         return redirect()->route('home');
+    }
+    private function handleFileUpload($table_id, $table_name, $item, $folder, $type)
+    {
+        $destinationPath = 'storage/app_assets/' . $folder . '/' .$table_id. '-' . Str::kebab($table_name) .'/';
+
+        $fileName = $type. '-' . $table_id. '-' . time() . '-' . Str::uuid() . '-' . $item->getClientOriginalName();
+
+        $item->move($destinationPath, $fileName);
+
+        return asset('/') . $destinationPath . $fileName;
     }
     public function viewLogin()
     {
@@ -50,7 +51,6 @@ class AuthController extends Controller
 
         if (Auth::attempt($credentials)) {
             $request->session()->regenerate();
-
             return redirect()->route('home');
         }
 

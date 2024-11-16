@@ -13,6 +13,8 @@ class Theme extends Model
     protected $guarded = [];
     public function rooms(): \Illuminate\Database\Eloquent\Relations\BelongsToMany
     {
-        return $this->belongsToMany(Room::class)->withPivot('status');
+        return $this->belongsToMany(Room::class)
+            ->withPivot('status')
+            ->withTimestamps();
     }
 }

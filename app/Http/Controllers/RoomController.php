@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Gift;
 use App\Models\Room;
 use App\Http\Requests\StoreRoomRequest;
 use App\Http\Requests\UpdateRoomRequest;
@@ -18,7 +19,13 @@ class RoomController extends Controller
         if (auth()->user()->room === null){
             return Inertia::render('Room/create');
         } else {
-            return Inertia::render('Room/myRoom');
+            $owner = auth()->user();
+            $theme = $owner->room->themes()->wherePivot('status', true)->first();
+            return Inertia::render('Room/myRoom', [
+                'owner' => $owner,
+                'room' => $owner->room,
+                'theme' => $theme
+            ]);
         }
     }
 
@@ -53,17 +60,14 @@ class RoomController extends Controller
 
         $authUser = auth()->user();
 
-        $authUser->room()->firstOrCreate([
+        $authUser->room()->create([
             'user_id' => auth()->user()->id,
             'name' => $request->name,
             'greetings' => $request->greetings,
         ]);
+        auth()->user()->room->themes()->attach(1, ['status' => true]);
 
         $authUser->room->image = $this->handleFileUpload($authUser->room->id, $authUser->room->name, $request->image, 'room', 'image');
-
-        $defaultTheme = Theme::all()->first();
-
-        $authUser->room->sync($defaultTheme);
 
         $authUser->room->save();
 
@@ -84,9 +88,17 @@ class RoomController extends Controller
     /**
      * Display the specified resource.
      */
-    public function show(Room $room)
+    public function show($room)
     {
-        //
+        $roomWithUser = Room::where('ulid', $room)->with('user')->firstOrFail();
+        $theme = $roomWithUser->themes()->wherePivot('status', true)->firstOrFail();
+        $gifts = Gift::all()->groupBy('type');
+        return Inertia::render('Room/myRoom', [
+            'owner' => $roomWithUser->user,
+            'room' => $roomWithUser,
+            'theme' => $theme,
+            'gifts' => $gifts,
+        ]);
     }
 
     /**

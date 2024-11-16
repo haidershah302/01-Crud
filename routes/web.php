@@ -27,14 +27,15 @@ Route::controller(AuthController::class)->middleware('guest')->group(function ()
 
 // Auth MiddleWare
 Route::middleware('auth')->group(function () {
-    Route::inertia('/', 'Home')->name('home');
-
     Route::post('/logout', [AuthController::class, 'logout'])->name('logout');
 
     Route::inertia('/admin', 'Admin/index')->name('admin');
 
     // Profile Pages
     Route::controller(ProfileController::class)->group(function () {
+
+        Route::get('/', 'home')->name('home');
+
         Route::get('/profile', 'user')->name('profile.user');
 
         Route::get('/profile/view/{user}', 'view')->name('profile.view');
@@ -65,6 +66,8 @@ Route::middleware('auth')->group(function () {
         Route::post('/myRoom/create', 'store')->name('myRoom.create');
 
         Route::get('/admin/room', 'index')->name('admin.room.index');
+
+        Route::get('/room/{room}/show', 'show')->name('admin.room.show');
 
     });
 

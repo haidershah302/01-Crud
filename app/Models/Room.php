@@ -4,8 +4,6 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Str;
-use Psy\Output\Theme;
-use Ramsey\Uuid\Uuid;
 
 class Room extends Model
 {
@@ -15,17 +13,20 @@ class Room extends Model
     {
         parent::boot();
         self::creating(function ($model) {
-            $model->ulid = Str::ulid()->toRfc4122();
+            $model->ulid = Str::ulid();
         });
+    }
+
+    public function themes(): \Illuminate\Database\Eloquent\Relations\BelongsToMany
+    {
+        return $this->belongsToMany(Theme::class)
+            ->withPivot('status')
+            ->withTimestamps();
     }
 
     public function user(): \Illuminate\Database\Eloquent\Relations\BelongsTo
     {
         return $this->belongsTo(User::class);
-    }
-    public function theme(): \Illuminate\Database\Eloquent\Relations\BelongsToMany
-    {
-        return $this->belongsToMany(Theme::class)->withPivot('status');
     }
 
 }

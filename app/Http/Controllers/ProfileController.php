@@ -2,12 +2,20 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Room;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Inertia\Inertia;
 
 class ProfileController extends Controller
 {
+    public function home()
+    {
+        $rooms = Room::orderBy('created_at', 'desc')->with(['themes' => function ($query) {
+            $query->wherePivot('status', true);
+        }])->get();
+        return Inertia::render('Home', ['rooms' => $rooms]);
+    }
     public function user()
     {
         return Inertia::render('Profile/user', ['user' => auth()->user()]);

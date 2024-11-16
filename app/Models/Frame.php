@@ -16,6 +16,6 @@ class Frame extends Model
     {
         return $this->belongsToMany(User::class)->withPivot(
             'status', 'activated_at'
-        );
+        )->withTimestamps();
     }
 }

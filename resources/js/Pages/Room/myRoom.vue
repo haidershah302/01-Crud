@@ -1,24 +1,27 @@
 
 <template>
     <div>
-        <div class="room" :style="`background-image: url('${user.room.theme.background_image}');`">
+        <div class="room" :style="`
+                background-image: url('${theme.background}');
+                --theme-color: ${theme.color};
+                --theme-text-color: ${theme.text_color};
+                --theme-icon-color: ${theme.icons_color};
+                --theme-shadow-color: rgb(from ${theme.color} r g b / 0.3);
+                --avatar-size:  0;
+                --avatar-border: ${theme.bdr_box};
+            `"
+        >
             <div>
                 <div class="flex gap-2 px-2 mt-6">
 
                     <div class="room_head_block">
 
-                        <Avatar
-                            :frameSrc="user.frame.src"
-                            :profileSrc="$page.props.auth.user.avatar"
-                            :frameBorder="12"
-                            :frameSize="50"
-                            url="/profile/view"
-                        />
+                        <Avatar :profileSrc="room.image" :url="route('profile.view', owner.id)"/>
 
                         <div>
-                            <h1>{{ user.room.name }}</h1>
+                            <h1>{{ room.name }}</h1>
 
-                            <p>ID: {{ user.room.id }}</p>
+                            <p>ID: 100100{{ owner.id }}</p>
                         </div>
 
                         <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1024 1024">
@@ -60,13 +63,12 @@
 
                 <div class="grid grid-cols-5 text-center text-xs">
 
-                    <div v-for="n in user.room.allowed_seats" class="flex-col-middle text-[--theme-text-color]" style="height: 82px;">
+                    <div v-for="n in room.seat_quantity" class="flex-col-middle text-[--theme-text-color]" style="height: 82px;">
                         <Avatar
-                            :frameSrc="user.room.theme.frame.src"
-                            :profileSrc="user.room.theme.profile_picture"
-                            :frameBorder="13"
-                            :frameSize="50"
-                            url="/profile/view"
+                            :frameSrc="theme.seat_ring"
+                            :profileSrc="theme.seat"
+                            :frameBorder="theme.bdr_box"
+                            :frameSize="60"
                             class="mx-auto"
                         />
 
@@ -141,25 +143,44 @@
                             <progress class="progress shadow-md theme-shadow" value="60" max="100"></progress>
                         </div>
                     </div>
-                    <button class="btn p-0 btn-ghost shadow-icons">
+                    <button @click="modal = !modal" type="button" class="btn p-0 btn-ghost shadow-icons">
                         <img :src="$page.props.assets + '/site_assets/Room/gifts.png'" alt="">
                     </button>
                 </div>
 
             </div>
+
         </div>
+        <Modal :modalActive="modal" @close="modal = false" class="flex flex-col justify-end">
+            <div class="bg-base-200 p-1 w-full relative z-50">
+                <div role="tablist" class="tabs tabs-lifted">
+                    <template v-for="(giftCollection, index) in gifts" :key="index">
+                        <input
+                            type="radio"
+                            class="tab"
+                            :role="index"
+                            :name="index"
+                            :aria-label="index"
+                            :checked="index === 'Normal'"
+                        />
+                        <div role="tab" class="tab-content bg-base-100 border-base-300 rounded-box p-2">
+                            <div class="grid grid-cols-4 gap-1">
+                                <div v-for="gift in giftCollection" class="p-1 rounded border-2 border-primary">
+                                    <img :src="gift.src_static" class="shadow-lg rounded" alt="">
+                                    <p class="text-xs truncate mt-2">{{gift.name}}</p>
+                                    <p class="text-xs truncate mt-2">Rs.{{gift.price}}</p>
+                                </div>
+                            </div>
+                        </div>
+                    </template>
+                </div>
+            </div>
+        </Modal>
     </div>
 </template>
 
 <style lang="scss" scoped>
 .room {
-    --theme-color: v-bind(user.room.theme.color);
-    --theme-text-color: v-bind(user.room.theme.textColor);
-    --theme-icon-color: v-bind(user.room.theme.iconColor);
-    --theme-shadow-color: rgb(from v-bind(user.room.theme.color) r g b / 0.3);
-    --avatar-size:  v-bind(user.room.theme.frame.size);
-    --avatar-border: v-bind(user.room.theme.frame.bdr_box);
-
     background-size: cover;
     background-position: top;
     display: flex;
@@ -177,6 +198,8 @@
     color: var(--theme-text-color);
     margin-right: auto;
     display: flex;
+    align-items: center;
+    padding: 0 .2rem 0 .2rem;
     svg {
         height: 100%;
         width: 2rem;
@@ -264,40 +287,19 @@
 </style>
 
 <script setup>
-import {usePage} from "@inertiajs/vue3";
 import ChatBox from "@/Components/Room/chatBox.vue";
 import Avatar from "@/Components/Avatar.vue";
+import Modal from "@/Components/Modal.vue";
+import {ref} from "vue";
 
-const assetDir = usePage().props.assets;
+const modal = ref(false);
 
-const user = {
-    id: 1,
-    name: usePage().props.auth.user.name,
-    profile_picture: "https://img.daisyui.com/images/stock/photo-1534528741775-53994a69daeb.webp",
-    frame: {
-        src: assetDir + '/site_assets/frames/3.png',
-        bdr_box: 5,
-        size: '60px',
-    },
-    room: {
-        id: '100100' + usePage().props.auth.user.id,
-        name: usePage().props.auth.user.name,
-        total_gift_interactions: 1123,
-        active_users: 3211,
-        allowed_seats: 15,
-        theme: {
-            background_image: assetDir + '/site_assets/backgrounds/3.jpg',
-            frame: {
-                src: assetDir + '/site_assets/frames/3.png',
-                bdr_box: 15,
-                size: 80,
-            },
-            profile_picture: assetDir + '/site_assets/Room/seat.png',
-            color: '#a06af3',
-            textColor: '#ffffff',
-            iconColor: '#ffffff',
-        }
-    },
-};
+const props = defineProps({
+    owner: Object,
+    room : Object,
+    theme: Object,
+    gifts: Object,
+})
 
+console.log(props.gifts);
 </script>

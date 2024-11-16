@@ -12,19 +12,20 @@ return new class extends Migration
     public function up(): void
     {
         Schema::create('room_theme', function (Blueprint $table) {
+            $table->id();
             $table->bigInteger('room_id')->unsigned();
             $table->bigInteger('theme_id')->unsigned();
-            $table->boolean('status')->default(false)->nullable();
+            $table->boolean('status');
 
             $table->foreign('room_id')
                 ->references('id')
-                ->on('Room')
+                ->on('rooms')
                 ->onDelete('cascade')
                 ->onUpdate('cascade');
 
             $table->foreign('theme_id')
                 ->references('id')
-                ->on('Theme')
+                ->on('themes')
                 ->onDelete('cascade')
                 ->onUpdate('cascade');
 

@@ -21,7 +21,7 @@
 </style>
 <template>
     <div class="relative" :style="`width: ${frameSize}px;height: ${frameSize}px;`">
-        <div v-if="url !== ''" class="room-avatar absolute_center"
+        <div v-if="url === ''" class="room-avatar absolute_center"
               style="width: 100%;height: 100%;">
             <img
                 v-show="profileSrc !== ''"
@@ -36,7 +36,7 @@
                 :src="frameSrc" alt=""
             >
         </div>
-        <Link v-else :href="url" class="room-avatar absolute_center"
+        <Link v-else :href="url" class="room-avatar cursor-pointer absolute_center"
               style="width: 100%;height: 100%;">
             <img
                 v-show="profileSrc !== ''"
