@@ -45,7 +45,6 @@ class User extends Authenticatable
     protected function casts(): array
     {
         return [
-            'email_verified_at' => 'datetime',
             'password' => 'hashed',
         ];
     }
@@ -60,18 +59,15 @@ class User extends Authenticatable
         return $this->hasOne(Room::class);
     }
 
-    public function themes(): \Illuminate\Database\Eloquent\Relations\HasMany
+    public function frames(): \Illuminate\Database\Eloquent\Relations\BelongsToMany
     {
-        return $this->hasMany(Theme::class);
+        return  $this->belongsToMany(Frame::class)->withPivot(
+            'status', 'activated_at'
+        );
     }
 
-    public function frames(): \Illuminate\Database\Eloquent\Relations\HasMany
+    public function gifts(): \Illuminate\Database\Eloquent\Relations\BelongsToMany
     {
-        return $this->hasMany(Frame::class);
-    }
-
-    public function gifts(): \Illuminate\Database\Eloquent\Relations\HasMany
-    {
-        return $this->hasMany(Gift::class);
+        return $this->belongsToMany(Gift::class);
     }
 }

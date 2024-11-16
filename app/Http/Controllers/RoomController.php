@@ -5,7 +5,9 @@ namespace App\Http\Controllers;
 use App\Models\Room;
 use App\Http\Requests\StoreRoomRequest;
 use App\Http\Requests\UpdateRoomRequest;
+use App\Models\Theme;
 use Illuminate\Http\Request;
+use Illuminate\Support\Str;
 use Inertia\Inertia;
 
 class RoomController extends Controller
@@ -43,16 +45,42 @@ class RoomController extends Controller
      */
     public function store(Request $request)
     {
-        $request->validate(['name' => 'required', 'string', 'max:255']);
-
-        auth()->user()->room()->firstOrCreate([
-            'name' => $request->name,
-            'user_id' => auth()->user()->id,
+        $request->validate([
+            'name' => ['required', 'string', 'max:255', 'unique:rooms'],
+            'greetings' => ['required', 'string', 'max:255'],
+            'image' => ['required', 'image', 'mimes:jpeg,jpg,png,svg,webp', 'max:3000'],
         ]);
+
+        $authUser = auth()->user();
+
+        $authUser->room()->firstOrCreate([
+            'user_id' => auth()->user()->id,
+            'name' => $request->name,
+            'greetings' => $request->greetings,
+        ]);
+
+        $authUser->room->image = $this->handleFileUpload($authUser->room->id, $authUser->room->name, $request->image, 'room', 'image');
+
+        $defaultTheme = Theme::all()->first();
+
+        $authUser->room->sync($defaultTheme);
+
+        $authUser->room->save();
 
         return redirect()->route('myRoom');
     }
 
+
+    private function handleFileUpload($table_id, $table_name, $item, $folder, $type)
+    {
+        $destinationPath = 'storage/app_assets/' . $folder . '/' .$table_id. '-' . Str::kebab($table_name) .'/';
+
+        $fileName = $type. '-' . $table_id. '-' . time() . '-' . Str::uuid() . '-' . $item->getClientOriginalName();
+
+        $item->move($destinationPath, $fileName);
+
+        return asset('/') . $destinationPath . $fileName;
+    }
     /**
      * Display the specified resource.
      */

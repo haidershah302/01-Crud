@@ -22,9 +22,9 @@ class Room extends Model
     {
         return $this->belongsTo(User::class);
     }
-    public function theme(): \Illuminate\Database\Eloquent\Relations\HasOne
+    public function theme(): \Illuminate\Database\Eloquent\Relations\BelongsToMany
     {
-        return $this->hasOne(Theme::class);
+        return $this->belongsToMany(Theme::class)->withPivot('status');
     }
 
 }

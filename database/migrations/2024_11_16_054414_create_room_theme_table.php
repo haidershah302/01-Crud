@@ -11,21 +11,24 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('theme_user', function (Blueprint $table) {
-            $table->bigInteger('user_id')->unsigned();
+        Schema::create('room_theme', function (Blueprint $table) {
+            $table->bigInteger('room_id')->unsigned();
             $table->bigInteger('theme_id')->unsigned();
+            $table->boolean('status')->default(false)->nullable();
 
-            $table->foreign('user_id')
+            $table->foreign('room_id')
                 ->references('id')
-                ->on('users')
+                ->on('Room')
                 ->onDelete('cascade')
                 ->onUpdate('cascade');
 
             $table->foreign('theme_id')
                 ->references('id')
-                ->on('themes')
+                ->on('Theme')
                 ->onDelete('cascade')
                 ->onUpdate('cascade');
+
+            $table->timestamps();
         });
     }
 
@@ -34,6 +37,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('theme_user');
+        Schema::dropIfExists('room_theme');
     }
 };

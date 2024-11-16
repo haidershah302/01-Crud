@@ -14,6 +14,8 @@ return new class extends Migration
         Schema::create('frame_user', function (Blueprint $table) {
             $table->bigInteger('user_id')->unsigned();
             $table->bigInteger('frame_id')->unsigned();
+            $table->boolean('status')->default(false)->nullable();
+            $table->timestamp('activated_at')->nullable();
 
             $table
                 ->foreign('user_id')
@@ -27,6 +29,8 @@ return new class extends Migration
                 ->on('frames')
                 ->onDelete('cascade')
                 ->onUpdate('cascade');
+
+            $table->timestamps();
         });
     }
 

@@ -11,14 +11,8 @@ class Theme extends Model
 
     protected $table = 'themes';
     protected $guarded = [];
-    public function user(): \Illuminate\Database\Eloquent\Relations\BelongsToMany
+    public function rooms(): \Illuminate\Database\Eloquent\Relations\BelongsToMany
     {
-        return $this->belongsToMany(User::class);
+        return $this->belongsToMany(Room::class)->withPivot('status');
     }
-
-    public function room(): \Illuminate\Database\Eloquent\Relations\BelongsToMany
-    {
-        return $this->belongsToMany(Room::class);
-    }
-
 }

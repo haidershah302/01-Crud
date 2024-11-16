@@ -19,16 +19,10 @@ return new class extends Migration
             $table->string('src_static')->nullable();
             $table->string('src_animated')->nullable();
             $table->integer('bdr_box')->nullable();
-            $table->time('active_time')->nullable();
             $table->boolean('status')->default(false);
-            $table->dateTime('start_time')->nullable();
+            $table->time('expires_after')->nullable();
 
             $table->timestamps();
-
-            $table->bigInteger('user_id')->unsigned()->nullable();
-            $table->foreign('user_id')
-                ->references('id')
-                ->on('users');
         });
     }
 

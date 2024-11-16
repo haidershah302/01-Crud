@@ -28,6 +28,7 @@ return new class extends Migration
                 ->on('gifts')
                 ->onDelete('cascade')
                 ->onUpdate('cascade');
+
             $table->timestamps();
         });
     }

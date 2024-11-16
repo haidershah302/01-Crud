@@ -12,8 +12,10 @@ class Frame extends Model
     protected $table = 'frames';
     protected $guarded = [];
 
-    public function user(): \Illuminate\Database\Eloquent\Relations\BelongsToMany
+    public function users(): \Illuminate\Database\Eloquent\Relations\BelongsToMany
     {
-        return $this->belongsToMany(User::class);
+        return $this->belongsToMany(User::class)->withPivot(
+            'status', 'activated_at'
+        );
     }
 }

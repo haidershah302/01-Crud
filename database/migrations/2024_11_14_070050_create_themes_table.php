@@ -14,7 +14,6 @@ return new class extends Migration
         Schema::create('themes', function (Blueprint $table) {
             $table->id();
 
-            $table->string('profile')->nullable();
             $table->bigInteger('price')->nullable();
             $table->string('name')->nullable()->unique();
             $table->string('color', 9)->nullable();
@@ -28,18 +27,6 @@ return new class extends Migration
             $table->string('status')->nullable();
 
             $table->timestamps();
-
-            $table->bigInteger('room_id')->unsigned()->nullable();
-            $table->foreign('room_id')
-                ->references('id')
-                ->on('rooms')
-                ->onDelete('cascade')
-                ->onUpdate('cascade');
-
-            $table->bigInteger('user_id')->unsigned()->nullable();
-            $table->foreign('user_id')
-                ->references('id')
-                ->on('users');
         });
     }
 

@@ -17,7 +17,7 @@ return new class extends Migration
 
             $table->string('name', 255)->nullable()->unique();
             $table->integer('seat_quantity')->default(15);
-            $table->string('image', 255)->default('https://i.pravatar.cc/300')->nullable();
+            $table->string('image')->default('https://i.pravatar.cc/300')->nullable();
             $table->string('announcement', 255)->nullable();
             $table->string('greetings', 255)->nullable();
             $table->string('status', 255)->default('Active')->nullable();
