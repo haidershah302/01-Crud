@@ -15,15 +15,15 @@ return new class extends Migration
             $table->id();
 
             $table->string('type');
-            $table->bigInteger('price')->nullable();
             $table->string('name', 255)->nullable()->unique();
+            $table->bigInteger('price')->nullable();
             $table->string('src_static', 255)->nullable();
             $table->string('src_animated', 255)->nullable();
-            $table->string('duration', 255)->nullable();
+            $table->decimal('duration')->nullable();
 
             $table->timestamps();
 
-            $table->bigInteger('user_id')->unsigned()->index();
+            $table->bigInteger('user_id')->unsigned()->index()->nullable();
             $table->foreign('user_id')
                 ->references('id')
                 ->on('users');

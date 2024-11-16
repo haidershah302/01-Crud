@@ -11,7 +11,7 @@ class StoreGiftRequest extends FormRequest
      */
     public function authorize(): bool
     {
-        return false;
+        return true;
     }
 
     /**
@@ -22,7 +22,12 @@ class StoreGiftRequest extends FormRequest
     public function rules(): array
     {
         return [
-            //
+            'type' => ['required', 'in:Normal,Cp,Vip,Country,Celebrity,Bag'],
+            'name' => ['required', 'string', 'max:255', 'unique:gifts'],
+            'price' => ['required', 'numeric'],
+            'duration' => ['required', 'numeric'],
+            'src_static' => ['required', 'image', 'mimes:jpeg,jpg,png,svg,webp', 'max:3000'],
+            'src_animated' => ['required', 'file', 'mimes:jpeg,jpg,png,svg,webp,mp4,wave,gif', 'max:5000'],
         ];
     }
 }

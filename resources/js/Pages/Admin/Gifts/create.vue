@@ -7,9 +7,9 @@
 
 .file-upload > label
 {
-    @apply mt-2 p-0 cursor-pointer border-dashed border-4
+    @apply mt-2 p-2 cursor-pointer border-dashed border-4
     border-base-content/30
-    shadow-lg flex justify-center items-center h-44 w-40 rounded-lg;
+    shadow-lg flex justify-center items-center h-64 w-40 rounded-lg;
 }
 
 .file-upload > svg {
@@ -27,6 +27,7 @@
 .plain-text-input > input {
     @apply input input-bordered shadow-lg w-full;
 }
+
 .select-input {
     @apply text-sm font-medium;
 }
@@ -38,21 +39,14 @@
 <template>
     <form class="glass shadow-lg rounded-lg mb-5 p-4 -mt-28 ml-24 pb-64 max-w-lg" @submit.prevent="submitForm">
         <div class="flex gap-4 mb-2">
-            <!-- Frame Static Upload Field -->
+            <!-- Gift Static Upload Field -->
             <div class="file-upload">
-                <p>Frame Static Image</p>
+                <p>Gift Static Image</p>
                 <p v-if="formData.errors && formData.errors.src_static" class="text-error">
                     {{ formData.errors.src_static }}
                 </p>
-                <label for="src_static_upload"
-                       :class="formData.errors && formData.errors.src_static ? '!border-error !shadow-lg !shadow-error-content' : ''">
-                    <Avatar v-if="formData.src_static !== ''"
-                        :frameSrc="src_static_preview"
-                        :profileSrc="usePage().props.auth.user.avatar"
-                        :frameBorder="formData.bdr_box"
-                        :frameSize="150"
-                        class="mx-auto"
-                    />
+                <label for="src_static_upload" :class="formData.errors && formData.errors.src_static ? '!border-error !shadow-lg !shadow-error-content' : ''">
+                    <img v-if="formData.src_static !== ''" :src="src_static_preview" class="h-full rounded-lg" alt="Avatar Tailwind CSS Component" />
                     <svg
                         v-else xmlns="http://www.w3.org/2000/svg" fill="none"
                         viewBox="0 0 24 24"
@@ -75,21 +69,18 @@
                     />
                 </label>
             </div>
-            <!-- Frame Animated Upload Field -->
+            <!-- Gift Animated Upload Field -->
             <div class="file-upload">
-                <p>Frame Animated Image</p>
+                <p>Gift Animated Image</p>
                 <p v-if="formData.errors && formData.errors.src_animated" class="text-error">
                     {{ formData.errors.src_animated }}
                 </p>
                 <label for="src_animated_upload"
                        :class="formData.errors && formData.errors.src_animated ? '!border-error !shadow-lg !shadow-error-content' : ''">
-                    <Avatar v-if="formData.src_animated !== ''"
-                            :frameSrc="src_animated_preview"
-                            :profileSrc="usePage().props.auth.user.avatar"
-                            :frameBorder="formData.bdr_box"
-                            :frameSize="150"
-                            class="mx-auto"
-                    />
+                    <video @loadedmetadata="loadDuration" v-if="formData.src_animated !== ''" class="h-full rounded-lg" autoplay loop controls>
+                        <source :src="src_animated_preview" type="video/mp4">
+                        Your browser does not support HTML video.
+                    </video>
                     <svg
                         v-else xmlns="http://www.w3.org/2000/svg" fill="none"
                         viewBox="0 0 24 24"
@@ -108,12 +99,23 @@
                         id="src_animated_upload"
                         @change="handleSrcAnimatedUpload"
                         class="hidden"
-                        accept="image/*"
                     />
                 </label>
             </div>
         </div>
-
+        <!-- Gift Type Field -->
+        <div class="select-input" :class="formData.errors && formData.errors.type ? '!input-error !shadow-lg !shadow-error-content' : ''">
+            <label for="type">Type</label>
+            <select id="type" v-model="formData.type" required>
+                <option value="" disabled>Select Gift</option>
+                <option value="Normal">Normal</option>
+                <option value="Cp">CP</option>
+                <option value="Vip">Vip</option>
+                <option value="Country">Country</option>
+                <option value="Celebrity">Celebrity</option>
+                <option value="Bag">Bag</option>
+            </select>
+        </div>
         <!-- Name Field -->
         <div class="mb-4 plain-text-input">
             <label for="name">
@@ -140,30 +142,30 @@
                 required
             />
         </div>
-        <!-- Border Field -->
+        <!-- Duration Field -->
         <div class="mb-4 plain-text-input">
-            <label for="bdr_box">
-                Bounding Box
+            <label for="duration">
+                Duration Box
             </label>
             <input
                 type="number"
-                id="bdr_box"
-                v-model="formData.bdr_box"
-                :class="formData.errors && formData.errors.bdr_box ? '!input-error !shadow-lg !shadow-error-content' : ''"
+                id="duration"
+                step="any"
+                v-model="formData.duration"
+                :class="formData.errors && formData.errors.duration ? '!input-error !shadow-lg !shadow-error-content' : ''"
                 required
             />
         </div>
 
         <!-- Submit Button -->
         <button type="submit" class="btn btn-primary w-full my-4" :class="formData.processing ? 'btn-loading' : ''">
-            Create Frame
+            Create Gift
         </button>
     </form>
 </template>
 <script setup>
 import Admin from "@/Layouts/Admin.vue";
-import Avatar from "@/Components/Avatar.vue";
-import {useForm, usePage} from "@inertiajs/vue3";
+import {useForm} from "@inertiajs/vue3";
 import {ref} from "vue";
 
 defineOptions({
@@ -175,10 +177,11 @@ let src_animated_preview = ref(null);
 
 const formData = useForm({
     name: '',
+    type: '',
     price: null,
+    duration: null,
     src_static: '',
     src_animated: '',
-    bdr_box: null,
 });
 const handleSrcStaticUpload = (event) => {
     if (event.target.files[0])
@@ -194,7 +197,13 @@ const handleSrcAnimatedUpload = (event) => {
         formData.src_animated = event.target.files[0];
     }
 };
+
+const loadDuration = (event) => {
+    formData.duration = event.target.duration;
+};
+
+
 const submitForm = () => {
-    formData.post(route('admin.frame.store'));
+    formData.post(route('admin.gift.store'));
 };
 </script>

@@ -85,21 +85,12 @@ const menuItems = [
         ]
     },
     {
-        title: 'All Frames',
+        title: 'Frames',
         href: route('admin.frame.index'),
     },
     {
         title: 'Gifts',
-        child: [
-            {
-                title: 'View All Gifts',
-                href: route('admin'),
-            },
-            {
-                title: 'Add New Gift',
-                href: route('admin'),
-            }
-        ]
+        href: route('admin.gift.index'),
     }
 ];
 </script>

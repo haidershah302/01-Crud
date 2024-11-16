@@ -3,6 +3,7 @@
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\ExchangeHistoryController;
 use App\Http\Controllers\FrameController;
+use App\Http\Controllers\GiftController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\RoomController;
 use App\Http\Controllers\ThemeController;
@@ -96,6 +97,23 @@ Route::middleware('auth')->group(function () {
         Route::post('/admin/frame/{frame}', 'update')->name('admin.frame.update');
 
         route::delete('/admin/frame/{frame}', 'destroy')->name('admin.frame.destroy');
+
+    });
+
+    //GiftController
+    Route::controller(GiftController::class)->group(function () {
+
+        Route::get('/admin/gift', 'index')->name('admin.gift.index');
+
+        Route::get('/admin/gift/create', 'create')->name('admin.gift.create');
+
+        Route::post('/admin/gift/store', 'store')->name('admin.gift.store');
+
+        Route::get('/admin/gift/{gift}', 'edit')->name('admin.gift.edit');
+
+        Route::post('/admin/gift/{gift}', 'update')->name('admin.gift.update');
+
+        route::delete('/admin/gift/{gift}', 'destroy')->name('admin.gift.destroy');
 
     });
 });

@@ -147,7 +147,11 @@
                 Update
             </button>
 
+            <Link :href="route('logout')" method="post" as="button" type="button" class="btn btn-error shadow-xl shadow-error/30 mt-6 w-full"> Logout </Link>
+
         </form>
+
+
     </div>
 </template>
 <script setup>
