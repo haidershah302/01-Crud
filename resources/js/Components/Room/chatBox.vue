@@ -1,5 +1,5 @@
 <template>
-    <div class="chat-box scrollbar-none">
+    <div class="chat-box scrollbar">
         <p class="text-xs bg-[--theme-color] rounded p-2">
             Welcome to FLY LIVE. Any bad information in chat will be blocked.
             Please respect each other and country and religions and chat in a
@@ -20,8 +20,8 @@
                 {{ $page.props.auth.user.name }}
                 <time class="text-xs opacity-50">12:45</time>
             </div>
-            <div class="chat-bubble text-sm p-2 bg-transparent shadow-lg">
-                You were the Chosen One!
+            <div v-for="n in clicked" class="chat-bubble text-sm p-2 bg-transparent shadow-lg">
+                Some One Just Clicked the Switch
             </div>
         </div>
 
@@ -36,3 +36,12 @@
     height: 100%;
 }
 </style>
+
+<script setup>
+
+const props = defineProps({
+    clicked: Number
+});
+
+
+</script>

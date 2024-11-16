@@ -1,5 +1,6 @@
 <?php
 
+use App\Events\SwitchFlipped;
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\ExchangeHistoryController;
 use App\Http\Controllers\FrameController;
@@ -7,7 +8,10 @@ use App\Http\Controllers\GiftController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\RoomController;
 use App\Http\Controllers\ThemeController;
+use App\Models\User;
+use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
+use Laravel\Reverb\Events\MessageSent;
 
 
 // Guest MiddleWare
@@ -68,6 +72,11 @@ Route::middleware('auth')->group(function () {
         Route::get('/admin/room', 'index')->name('admin.room.index');
 
         Route::get('/room/{room}/show', 'show')->name('admin.room.show');
+
+        Route::post('/room/switch/{user}', function (Request $request,User $user){
+            Cache::forever('toggleSwitch', $request->switch);
+            broadcast(new SwitchFlipped($request->switch))->toOthers();
+        })->name('room.switch');
 
     });
 

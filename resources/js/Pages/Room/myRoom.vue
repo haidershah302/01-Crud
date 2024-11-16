@@ -94,10 +94,13 @@
                 </div>
             </div>
 
+
+            <button class="btn" :class="toggleSwitch === true ? 'btn-success' : 'btn-primary'" @click="sendEvent">Clicked {{toggleSwitch}}</button>
+
             <div class="actions-box">
 
                 <div class="action-chat">
-                    <ChatBox class="mb-2" />
+                    <ChatBox :clicked="times" class="mb-2" />
                     <div class="action-icons">
 
                         <button>
@@ -290,9 +293,13 @@
 import ChatBox from "@/Components/Room/chatBox.vue";
 import Avatar from "@/Components/Avatar.vue";
 import Modal from "@/Components/Modal.vue";
-import {ref} from "vue";
+import {onMounted, ref} from "vue";
+import {usePage} from "@inertiajs/vue3";
 
 const modal = ref(false);
+
+const toggleSwitch = ref(false);
+const times = ref(0);
 
 const props = defineProps({
     owner: Object,
@@ -301,5 +308,19 @@ const props = defineProps({
     gifts: Object,
 })
 
-console.log(props.gifts);
+function sendEvent () {
+    toggleSwitch.value = !toggleSwitch.value;
+    axios.post(route('room.switch', usePage().props.auth.user.id), {
+        switch: toggleSwitch.value,
+    });
+};
+
+onMounted(() => {
+    Echo.channel('SwitchFlipped')
+        .listen('SwitchFlipped', (e) => {
+            console.log(e, 'here income');
+            toggleSwitch.value = !toggleSwitch.value;
+            times.value += 1;
+        });
+});
 </script>
