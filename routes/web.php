@@ -75,7 +75,7 @@ Route::middleware('auth')->group(function () {
 
         Route::post('/room/switch/{user}', function (Request $request,User $user){
             Cache::forever('toggleSwitch', $request->switch);
-            broadcast(new SwitchFlipped($request->switch))->toOthers();
+            broadcast(new SwitchFlipped($request->all()))->toOthers();
         })->name('room.switch');
 
     });

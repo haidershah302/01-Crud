@@ -94,9 +94,6 @@
                 </div>
             </div>
 
-
-            <button class="btn" :class="toggleSwitch === true ? 'btn-success' : 'btn-primary'" @click="sendEvent">Clicked {{toggleSwitch}}</button>
-
             <div class="actions-box">
 
                 <div class="action-chat">
@@ -156,7 +153,7 @@
         </div>
         <Modal :modalActive="modal" @close="modal = false" class="flex flex-col justify-end">
             <div class="bg-base-200 p-1 w-full relative z-50">
-                <div role="tablist" class="tabs tabs-lifted">
+                <div  role="tablist" class="tabs tabs-lifted">
                     <template v-for="(giftCollection, index) in gifts" :key="index">
                         <input
                             type="radio"
@@ -168,17 +165,24 @@
                         />
                         <div role="tab" class="tab-content bg-base-100 border-base-300 rounded-box p-2">
                             <div class="grid grid-cols-4 gap-1">
-                                <div v-for="gift in giftCollection" class="p-1 rounded border-2 border-primary">
+                                <button @click="sendEvent()" v-for="gift in giftCollection" class="p-1 rounded border-2 border-primary">
                                     <img :src="gift.src_static" class="shadow-lg rounded" alt="">
                                     <p class="text-xs truncate mt-2">{{gift.name}}</p>
                                     <p class="text-xs truncate mt-2">Rs.{{gift.price}}</p>
-                                </div>
+                                </button>
                             </div>
                         </div>
                     </template>
                 </div>
             </div>
         </Modal>
+        <!-- Open the modal using ID.showModal() method -->
+        <div v-if="toggleSwitch" class="absolute w-full h-full z-[60]">
+            <video @loadedmetadata="loadDuration" class="h-full rounded-lg" autoplay>
+                <source :src="props.gifts.Normal[0].src_animated" type="video/mp4">
+                Your browser does not support HTML video.
+            </video>
+        </div>
     </div>
 </template>
 
@@ -300,6 +304,8 @@ const modal = ref(false);
 
 const toggleSwitch = ref(false);
 const times = ref(0);
+const duration = ref(0);
+
 
 const props = defineProps({
     owner: Object,
@@ -308,8 +314,7 @@ const props = defineProps({
     gifts: Object,
 })
 
-function sendEvent () {
-    toggleSwitch.value = !toggleSwitch.value;
+function sendEvent (gift) {
     axios.post(route('room.switch', usePage().props.auth.user.id), {
         switch: toggleSwitch.value,
     });
@@ -318,9 +323,16 @@ function sendEvent () {
 onMounted(() => {
     Echo.channel('SwitchFlipped')
         .listen('SwitchFlipped', (e) => {
-            console.log(e, 'here income');
-            toggleSwitch.value = !toggleSwitch.value;
+            console.log(e.toggleSwitch.switch, 'here income');
+            toggleSwitch.value = true;
+            setTimeout(() => {
+                toggleSwitch.value = false;
+            }, duration.value * 1000);
             times.value += 1;
         });
 });
+
+const loadDuration = (event) => {
+    duration.value = event.target.duration;
+};
 </script>
